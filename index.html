@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Intelligence / Clutch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B1D2C;
+            --navy-2: #122A3D;
+            --coral: #E05A3A;
+            --coral-dim: rgba(224, 90, 58, 0.07);
+            --white: #fff;
+            --g0: #FAFBFC;
+            --g1: #F1F3F6;
+            --g2: #DFE3E8;
+            --g3: #B5BEC9;
+            --g4: #8B96A4;
+            --g5: #5F6B7A;
+            --g6: #3B4654;
+            --g7: #1E2A36;
+            --green: #1EA354;
+            --green-dim: rgba(30,163,84,0.07);
+            --amber: #D19A08;
+            --amber-dim: rgba(209,154,8,0.07);
+            --red: #D94040;
+            --red-dim: rgba(217,64,64,0.07);
+            --blue: #3478F6;
+            --blue-dim: rgba(52,120,246,0.07);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--g0);
+            color: var(--g6);
+            -webkit-font-smoothing: antialiased;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--navy);
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .nav-left { display:flex; align-items:center; gap:10px; }
+        .wordmark {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.3px;
+        }
+        .wordmark span { color: var(--coral); }
+        .env-tag {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--coral);
+            border: 1px solid rgba(224,90,58,0.3);
+            padding: 2px 7px;
+            border-radius: 3px;
+        }
+        .nav-links { display:flex; gap:28px; }
+        .nav-links a {
+            color: var(--g3);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            transition: color .15s;
+        }
+        .nav-links a:hover, .nav-links a.on { color:var(--white); }
+
+        /* HERO */
+        .hero {
+            background: var(--navy);
+            padding: 56px 32px 48px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.6px;
+            line-height: 1.2;
+            max-width: 600px;
+            margin: 0 auto 12px;
+        }
+        .hero p {
+            font-size: 14px;
+            color: var(--g3);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+        .kpi-row {
+            display: flex;
+            justify-content: center;
+            gap: 56px;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .kpi b {
+            display: block;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .kpi b span { color: var(--coral); }
+        .kpi small {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--g4);
+        }
+
+        /* LAYOUT */
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 32px; }
+        .row { display:grid; gap:16px; margin-bottom:16px; }
+        .r3 { grid-template-columns: repeat(3,1fr); }
+        .r2 { grid-template-columns: 1fr 1fr; }
+
+        /* CARDS */
+        .c {
+            background: var(--white);
+            border: 1px solid var(--g1);
+            border-radius: 10px;
+        }
+        .c-head {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--g1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .c-head h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .c-body { padding: 20px; }
+
+        /* PILL */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            gap: 5px;
+        }
+        .pill.live { color: var(--green); background: var(--green-dim); }
+        .pill.beta { color: var(--blue); background: var(--blue-dim); }
+        .pill.auto { color: var(--g5); background: var(--g1); }
+        .dot {
+            width: 5px; height: 5px; border-radius: 50%; background: currentColor;
+            animation: blink 2s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+        /* FEATURE CARDS */
+        .feat { padding: 24px; }
+        .feat-icon {
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 14px;
+        }
+        .feat-icon.a { background: var(--coral-dim); color: var(--coral); }
+        .feat-icon.b { background: var(--blue-dim); color: var(--blue); }
+        .feat-icon.d { background: var(--green-dim); color: var(--green); }
+        .feat h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+        .feat p { font-size: 12px; color: var(--g4); line-height: 1.6; }
+
+        /* ANOMALY LIST */
+        .anom { display:flex; flex-direction:column; gap:1px; }
+        .anom-row {
+            display: grid;
+            grid-template-columns: 6px 1fr auto;
+            gap: 12px;
+            align-items: start;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--g1);
+        }
+        .anom-row:last-child { border-bottom:none; }
+        .sev { width:6px; height:6px; border-radius:50%; margin-top:5px; }
+        .sev.h { background:var(--red); }
+        .sev.m { background:var(--amber); }
+        .sev.l { background:var(--g3); }
+        .anom-t { font-size:12px; font-weight:600; color:var(--g7); }
+        .anom-d { font-size:11px; color:var(--g4); line-height:1.55; margin-top:2px; }
+        .anom-meta { text-align:right; white-space:nowrap; }
+        .anom-conf { font-size:11px; font-weight:700; color:var(--g6); }
+        .anom-ts { font-size:10px; color:var(--g3); }
+
+        /* PROVIDER BRIEF */
+        .prov {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--g1);
+        }
+        .av {
+            width: 36px; height: 36px; border-radius: 8px;
+            background: var(--navy); color: var(--white);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; flex-shrink: 0;
+        }
+        .prov-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+        .prov-cat { font-size: 11px; color: var(--g4); }
+        .prov-rating { margin-left:auto; font-size:13px; font-weight:700; color:var(--navy); }
+        .prov-rating span { color:var(--coral); margin-right:4px; font-size:12px; }
+
+        .brief { padding: 18px 20px; }
+        .brief-label {
+            font-size: 9px; font-weight: 700; letter-spacing: 1.2px;
+            text-transform: uppercase; color: var(--g3); margin-bottom: 8px;
+        }
+        .brief-text { font-size: 12px; color: var(--g5); line-height: 1.7; margin-bottom: 16px; }
+        .tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+        .tag {
+            font-size: 10px; font-weight: 600; padding: 3px 10px;
+            border-radius: 3px; border: 1px solid;
+        }
+        .tag.pos { color:#16883e; background:var(--green-dim); border-color:rgba(30,163,84,0.15); }
+        .tag.neu { color:var(--blue); background:var(--blue-dim); border-color:rgba(52,120,246,0.15); }
+        .tag.neg { color:var(--red); background:var(--red-dim); border-color:rgba(217,64,64,0.15); }
+        .tri-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+        .tri-m {
+            text-align:center; padding:12px 6px;
+            background:var(--g0); border-radius:6px;
+        }
+        .tri-m b { display:block; font-size:17px; font-weight:700; color:var(--navy); }
+        .tri-m small { font-size:10px; color:var(--g4); }
+
+        /* INTENT TABLE */
+        .it { width:100%; border-collapse:collapse; }
+        .it th {
+            text-align:left; font-size:10px; font-weight:600;
+            color:var(--g3); text-transform:uppercase; letter-spacing:.6px;
+            padding:0 14px 12px; border-bottom:1px solid var(--g1);
+        }
+        .it td { padding:12px 14px; border-bottom:1px solid var(--g1); vertical-align:middle; }
+        .it tr:last-child td { border-bottom:none; }
+        .it tr:hover td { background:var(--g0); }
+        .buyer { display:flex; align-items:center; gap:10px; }
+        .buyer .av { width:28px; height:28px; font-size:10px; border-radius:6px; }
+        .buyer-n { font-size:12px; font-weight:600; color:var(--navy); }
+        .buyer-c { font-size:10px; color:var(--g4); }
+        .bar-wrap { display:flex; align-items:center; gap:8px; min-width:140px; }
+        .bar { flex:1; height:4px; background:var(--g1); border-radius:2px; overflow:hidden; }
+        .bar-f { height:100%; border-radius:2px; transition:width 1s ease; }
+        .bar-f.hi { background:var(--green); }
+        .bar-f.md { background:var(--amber); }
+        .bar-f.lo { background:var(--g3); }
+        .sc { font-size:12px; font-weight:700; min-width:24px; text-align:right; }
+        .sc.hi { color:var(--green); }
+        .sc.md { color:var(--amber); }
+        .sc.lo { color:var(--g4); }
+        .sigs { display:flex; flex-wrap:wrap; gap:4px; }
+        .sig {
+            font-size:10px; font-weight:500; padding:2px 7px;
+            border-radius:3px; background:var(--g0); color:var(--g5);
+            border:1px solid var(--g1);
+        }
+        .btn {
+            font-size:11px; font-weight:600; padding:5px 12px;
+            border-radius:5px; border:none; cursor:pointer;
+        }
+        .btn.p { background:var(--coral); color:var(--white); }
+        .btn.p:hover { background:#c9492e; }
+        .btn.s { background:var(--g0); color:var(--g5); border:1px solid var(--g2); }
+        .btn.s:hover { background:var(--g1); }
+
+        /* COMPARISON */
+        .comp { display:grid; grid-template-columns:1fr 1fr; }
+        .comp-col { padding:18px 20px; }
+        .comp-col + .comp-col { border-left:1px solid var(--g1); }
+        .comp-h { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+        .comp-h .av { width:28px; height:28px; font-size:10px; }
+        .comp-name { font-size:12px; font-weight:600; color:var(--navy); }
+        .comp-sub { font-size:10px; color:var(--g4); }
+        .hbar { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+        .hbar-l { font-size:11px; color:var(--g4); width:80px; flex-shrink:0; }
+        .hbar-t { flex:1; height:5px; background:var(--g1); border-radius:3px; overflow:hidden; }
+        .hbar-f { height:100%; border-radius:3px; transition:width .8s ease; }
+        .hbar-f.coral { background:var(--coral); }
+        .hbar-f.navy { background:var(--navy); }
+        .hbar-v { font-size:11px; font-weight:700; color:var(--navy); min-width:22px; text-align:right; }
+
+        /* METRICS */
+        .mrow {
+            display:flex; justify-content:space-between; align-items:center;
+            padding:11px 0; border-bottom:1px solid var(--g1);
+        }
+        .mrow:last-child { border-bottom:none; }
+        .mrow-l { font-size:12px; color:var(--g4); }
+        .mrow-v { font-size:13px; font-weight:700; color:var(--navy); }
+        .mrow-v .up { color:var(--green); font-size:10px; font-weight:600; margin-left:4px; }
+        .mrow-v .dn { color:var(--red); font-size:10px; font-weight:600; margin-left:4px; }
+
+        /* FOOTER */
+        footer {
+            text-align:center; padding:32px;
+            border-top:1px solid var(--g1); margin-top:8px;
+        }
+        footer p { font-size:11px; color:var(--g3); line-height:1.6; }
+        footer strong { color:var(--g5); }
+
+        @media(max-width:860px) {
+            .r3,.r2 { grid-template-columns:1fr; }
+            .comp { grid-template-columns:1fr; }
+            .comp-col + .comp-col { border-left:none; border-top:1px solid var(--g1); }
+            .kpi-row { flex-direction:column; gap:20px; }
+            nav, .wrap { padding-left:16px; padding-right:16px; }
+            .hero { padding:40px 16px 36px; }
+            .hero h1 { font-size:24px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-left">
+        <div class="wordmark">clutch<span>.</span></div>
+        <span class="env-tag">Review Intelligence</span>
+    </div>
+    <div class="nav-links">
+        <a href="#" class="on">Dashboard</a>
+        <a href="#">Anomalies</a>
+        <a href="#">Intent</a>
+        <a href="#">Reports</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Turn Review Data Into Revenue Intelligence</h1>
+    <p>AI that protects review integrity, surfaces actionable buyer signals, and helps providers close faster.</p>
+    <div class="kpi-row">
+        <div class="kpi"><b>94<span>%</span></b><small>Fraud Detection Rate</small></div>
+        <div class="kpi"><b>3.2<span>x</span></b><small>Faster Shortlisting</small></div>
+        <div class="kpi"><b>+41<span>%</span></b><small>Lead Conversion Lift</small></div>
+        <div class="kpi"><b>2.1<span>M</span></b><small>Reviews Analyzed</small></div>
+    </div>
+</section>
+
+<div class="wrap">
+
+    <!-- PILLARS -->
+    <div class="row r3">
+        <div class="c feat">
+            <div class="feat-icon a">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h4>Anomaly Detection</h4>
+            <p>Models trained on a decade of verified reviews flag coordinated submissions, sentiment mismatches, and templated language before they reach buyers.</p>
+        </div>
+        <div class="c feat">
+            <div class="feat-icon b">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h4>AI Provider Briefs</h4>
+            <p>Distills hundreds of long-form reviews into structured summaries with extracted themes, strengths, risks, and best-fit recommendations.</p>
+        </div>
+        <div class="c feat">
+            <div class="feat-icon d">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h4>Buyer Intent Scoring</h4>
+            <p>Behavioral signals scored in real time. Providers on Clutch+ see purchase probability, project indicators, and recommended outreach windows.</p>
+        </div>
+    </div>
+
+    <!-- ANOMALIES + BRIEF -->
+    <div class="row r2">
+        <div class="c">
+            <div class="c-head">
+                <h3>Anomaly Feed</h3>
+                <span class="pill live"><span class="dot"></span>Live</span>
+            </div>
+            <div class="c-body">
+                <div class="anom">
+                    <div class="anom-row">
+                        <div class="sev h"></div>
+                        <div>
+                            <div class="anom-t">Coordinated review cluster</div>
+                            <div class="anom-d">7 reviews for Apex Digital submitted within 48h from accounts created the same week. Language similarity: 0.89.</div>
+                        </div>
+                        <div class="anom-meta"><div class="anom-conf">97%</div><div class="anom-ts">12m ago</div></div>
+                    </div>
+                    <div class="anom-row">
+                        <div class="sev h"></div>
+                        <div>
+                            <div class="anom-t">Sentiment / rating mismatch</div>
+                            <div class="anom-d">Review text contains "delays" and "scope issues" but assigns 5.0. Queued for manual verification.</div>
+                        </div>
+                        <div class="anom-meta"><div class="anom-conf">91%</div><div class="anom-ts">34m ago</div></div>
+                    </div>
+                    <div class="anom-row">
+                        <div class="sev m"></div>
+                        <div>
+                            <div class="anom-t">Template pattern detected</div>
+                            <div class="anom-d">3 reviews across different providers share identical sentence structures. Cross-referencing reviewer records.</div>
+                        </div>
+                        <div class="anom-meta"><div class="anom-conf">78%</div><div class="anom-ts">1h ago</div></div>
+                    </div>
+                    <div class="anom-row">
+                        <div class="sev l"></div>
+                        <div>
+                            <div class="anom-t">Unusual rating distribution</div>
+                            <div class="anom-d">NovaTech shows 100% five-star reviews (n=23). Deviates 2.4 sigma from category norm.</div>
+                        </div>
+                        <div class="anom-meta"><div class="anom-conf">64%</div><div class="anom-ts">2h ago</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="c">
+            <div class="c-head">
+                <h3>AI Provider Brief</h3>
+                <span class="pill auto">Auto-generated</span>
+            </div>
+            <div class="prov">
+                <div class="av">ST</div>
+                <div>
+                    <div class="prov-name">SilverThread Technologies</div>
+                    <div class="prov-cat">Custom Software / Washington, DC</div>
+                </div>
+                <div class="prov-rating"><span>&#9733;</span> 4.8</div>
+            </div>
+            <div class="brief">
+                <div class="brief-label">Summary from 47 verified reviews</div>
+                <div class="brief-text">Consistently praised for technical depth in complex integrations and responsiveness to scope changes. Clients in healthcare and fintech highlight strong compliance awareness. Two recurring concerns: discovery phases run long and documentation handoffs need more structure. Best fit for mid-market companies with compliance-sensitive projects.</div>
+                <div class="brief-label">Themes</div>
+                <div class="tags">
+                    <span class="tag pos">Technical Depth</span>
+                    <span class="tag pos">Compliance Aware</span>
+                    <span class="tag pos">Responsive</span>
+                    <span class="tag neu">Mid-Market Fit</span>
+                    <span class="tag neg">Slow Discovery</span>
+                    <span class="tag neg">Docs Gaps</span>
+                </div>
+                <div class="tri-metrics">
+                    <div class="tri-m"><b>92%</b><small>Recommend</small></div>
+                    <div class="tri-m"><b>$185K</b><small>Avg. Project</small></div>
+                    <div class="tri-m"><b>8.4mo</b><small>Avg. Engagement</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTENT TABLE -->
+    <div class="c" style="margin-bottom:16px;">
+        <div class="c-head">
+            <h3>Buyer Intent Signals</h3>
+            <span class="pill live"><span class="dot"></span>Real-time</span>
+        </div>
+        <div style="padding:16px 20px 20px; overflow-x:auto;">
+            <table class="it">
+                <thead><tr>
+                    <th>Buyer</th><th>Intent</th><th>Signals</th><th>Est. Budget</th><th></th>
+                </tr></thead>
+                <tbody>
+                    <tr>
+                        <td><div class="buyer"><div class="av">JR</div><div><div class="buyer-n">Jordan Rivera</div><div class="buyer-c">Meridian Health Systems</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" style="width:92%"></div></div><span class="sc hi">92</span></div></td>
+                        <td><div class="sigs"><span class="sig">Compared 5 providers</span><span class="sig">Read 12 reviews</span><span class="sig">Repeat visitor</span></div></td>
+                        <td style="font-weight:600;color:var(--navy)">$150K+</td>
+                        <td><button class="btn p">Route Lead</button></td>
+                    </tr>
+                    <tr>
+                        <td><div class="buyer"><div class="av">SK</div><div><div class="buyer-n">Sarah Kim</div><div class="buyer-c">Vertex Financial Group</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" style="width:85%"></div></div><span class="sc hi">85</span></div></td>
+                        <td><div class="sigs"><span class="sig">Downloaded shortlist</span><span class="sig">Filtered by budget</span><span class="sig">3 sessions</span></div></td>
+                        <td style="font-weight:600;color:var(--navy)">$75K-100K</td>
+                        <td><button class="btn p">Route Lead</button></td>
+                    </tr>
+                    <tr>
+                        <td><div class="buyer"><div class="av">MT</div><div><div class="buyer-n">Marcus Thompson</div><div class="buyer-c">Cascade Retail Co.</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f md" style="width:58%"></div></div><span class="sc md">58</span></div></td>
+                        <td><div class="sigs"><span class="sig">Browsed 2 categories</span><span class="sig">Early research</span></div></td>
+                        <td style="font-weight:600;color:var(--navy)">$50K-75K</td>
+                        <td><button class="btn s">Nurture</button></td>
+                    </tr>
+                    <tr>
+                        <td><div class="buyer"><div class="av">AL</div><div><div class="buyer-n">Anna Liu</div><div class="buyer-c">Helix Biotech</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f lo" style="width:31%"></div></div><span class="sc lo">31</span></div></td>
+                        <td><div class="sigs"><span class="sig">Single page view</span></div></td>
+                        <td style="font-weight:600;color:var(--navy)">Unknown</td>
+                        <td><button class="btn s">Monitor</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- COMPARISON + METRICS -->
+    <div class="row r2">
+        <div class="c">
+            <div class="c-head">
+                <h3>Provider Comparison</h3>
+                <span class="pill beta">Beta</span>
+            </div>
+            <div class="comp">
+                <div class="comp-col">
+                    <div class="comp-h">
+                        <div class="av">ST</div>
+                        <div><div class="comp-name">SilverThread</div><div class="comp-sub">Recommended</div></div>
+                    </div>
+                    <div class="hbar"><span class="hbar-l">Quality</span><div class="hbar-t"><div class="hbar-f coral" style="width:92%"></div></div><span class="hbar-v">4.8</span></div>
+                    <div class="hbar"><span class="hbar-l">Timeliness</span><div class="hbar-t"><div class="hbar-f coral" style="width:78%"></div></div><span class="hbar-v">4.1</span></div>
+                    <div class="hbar"><span class="hbar-l">Cost Value</span><div class="hbar-t"><div class="hbar-f coral" style="width:85%"></div></div><span class="hbar-v">4.4</span></div>
+                    <div class="hbar"><span class="hbar-l">Communication</span><div class="hbar-t"><div class="hbar-f coral" style="width:94%"></div></div><span class="hbar-v">4.9</span></div>
+                </div>
+                <div class="comp-col">
+                    <div class="comp-h">
+                        <div class="av" style="background:var(--g4)">NX</div>
+                        <div><div class="comp-name">NexaBuild</div><div class="comp-sub">Alternative</div></div>
+                    </div>
+                    <div class="hbar"><span class="hbar-l">Quality</span><div class="hbar-t"><div class="hbar-f navy" style="width:86%"></div></div><span class="hbar-v">4.5</span></div>
+                    <div class="hbar"><span class="hbar-l">Timeliness</span><div class="hbar-t"><div class="hbar-f navy" style="width:90%"></div></div><span class="hbar-v">4.7</span></div>
+                    <div class="hbar"><span class="hbar-l">Cost Value</span><div class="hbar-t"><div class="hbar-f navy" style="width:72%"></div></div><span class="hbar-v">3.8</span></div>
+                    <div class="hbar"><span class="hbar-l">Communication</span><div class="hbar-t"><div class="hbar-f navy" style="width:82%"></div></div><span class="hbar-v">4.3</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="c">
+            <div class="c-head">
+                <h3>Platform Impact</h3>
+                <span style="font-size:11px;color:var(--g4)">Last 30 days</span>
+            </div>
+            <div class="c-body">
+                <div class="mrow"><span class="mrow-l">Reviews flagged</span><span class="mrow-v">1,247 <span class="up">+18%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Fraudulent reviews removed</span><span class="mrow-v">312 <span class="up">+24%</span></span></div>
+                <div class="mrow"><span class="mrow-l">AI summaries generated</span><span class="mrow-v">48,920 <span class="up">+156%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Avg. time to shortlist</span><span class="mrow-v">4.2 min <span class="dn">-68%</span></span></div>
+                <div class="mrow"><span class="mrow-l">High-intent leads routed</span><span class="mrow-v">2,830 <span class="up">+41%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Clutch+ lead conversion</span><span class="mrow-v">14.3% <span class="up">+5.2pp</span></span></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p><strong>Clutch Review Intelligence</strong><br>Product concept prepared for the AI Product Manager role. Demonstrates AI fluency, product thinking, and alignment with Clutch's mission to bring transparency to B2B buying decisions.</p>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.bar-f, .hbar-f').forEach(b => {
+            const w = b.style.width;
+            b.style.width = '0%';
+            requestAnimationFrame(() => requestAnimationFrame(() => b.style.width = w));
+        });
+        io.unobserve(e.target);
+    });
+}, { threshold: 0.15 });
+document.querySelectorAll('.c').forEach(c => io.observe(c));
+</script>
+</body>
+</html>
