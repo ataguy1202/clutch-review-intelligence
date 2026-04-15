@@ -3,395 +3,555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Intelligence / Clutch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #0B1D2C;
-            --navy-2: #122A3D;
-            --coral: #E05A3A;
-            --coral-dim: rgba(224, 90, 58, 0.07);
-            --white: #fff;
-            --g0: #FAFBFC;
-            --g1: #F1F3F6;
-            --g2: #DFE3E8;
-            --g3: #B5BEC9;
-            --g4: #8B96A4;
-            --g5: #5F6B7A;
-            --g6: #3B4654;
-            --g7: #1E2A36;
-            --green: #1EA354;
-            --green-dim: rgba(30,163,84,0.07);
-            --amber: #D19A08;
-            --amber-dim: rgba(209,154,8,0.07);
-            --red: #D94040;
-            --red-dim: rgba(217,64,64,0.07);
-            --blue: #3478F6;
-            --blue-dim: rgba(52,120,246,0.07);
-        }
-
-        * { margin:0; padding:0; box-sizing:border-box; }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--g0);
-            color: var(--g6);
-            -webkit-font-smoothing: antialiased;
-            font-size: 13px;
-            line-height: 1.55;
-        }
-
-        /* NAV */
-        nav {
-            background: var(--navy);
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-        .nav-left { display:flex; align-items:center; gap:10px; }
-        .wordmark {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: -0.3px;
-        }
-        .wordmark span { color: var(--coral); }
-        .env-tag {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--coral);
-            border: 1px solid rgba(224,90,58,0.3);
-            padding: 2px 7px;
-            border-radius: 3px;
-        }
-        .nav-links { display:flex; gap:28px; }
-        .nav-links a {
-            color: var(--g3);
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            transition: color .15s;
-        }
-        .nav-links a:hover, .nav-links a.on { color:var(--white); }
-
-        /* HERO */
-        .hero {
-            background: var(--navy);
-            padding: 56px 32px 48px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 34px;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: -0.6px;
-            line-height: 1.2;
-            max-width: 600px;
-            margin: 0 auto 12px;
-        }
-        .hero p {
-            font-size: 14px;
-            color: var(--g3);
-            max-width: 500px;
-            margin: 0 auto;
-            line-height: 1.65;
-        }
-        .kpi-row {
-            display: flex;
-            justify-content: center;
-            gap: 56px;
-            margin-top: 40px;
-            padding-top: 32px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .kpi b {
-            display: block;
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--white);
-        }
-        .kpi b span { color: var(--coral); }
-        .kpi small {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--g4);
-        }
-
-        /* LAYOUT */
-        .wrap { max-width: 1120px; margin: 0 auto; padding: 32px; }
-        .row { display:grid; gap:16px; margin-bottom:16px; }
-        .r3 { grid-template-columns: repeat(3,1fr); }
-        .r2 { grid-template-columns: 1fr 1fr; }
-
-        /* CARDS */
-        .c {
-            background: var(--white);
-            border: 1px solid var(--g1);
-            border-radius: 10px;
-        }
-        .c-head {
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--g1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .c-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--navy);
-        }
-        .c-body { padding: 20px; }
-
-        /* PILL */
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 4px;
-            gap: 5px;
-        }
-        .pill.live { color: var(--green); background: var(--green-dim); }
-        .pill.beta { color: var(--blue); background: var(--blue-dim); }
-        .pill.auto { color: var(--g5); background: var(--g1); }
-        .dot {
-            width: 5px; height: 5px; border-radius: 50%; background: currentColor;
-            animation: blink 2s infinite;
-        }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-        /* FEATURE CARDS */
-        .feat { padding: 24px; }
-        .feat-icon {
-            width: 36px; height: 36px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 14px;
-        }
-        .feat-icon.a { background: var(--coral-dim); color: var(--coral); }
-        .feat-icon.b { background: var(--blue-dim); color: var(--blue); }
-        .feat-icon.d { background: var(--green-dim); color: var(--green); }
-        .feat h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-        .feat p { font-size: 12px; color: var(--g4); line-height: 1.6; }
-
-        /* ANOMALY LIST */
-        .anom { display:flex; flex-direction:column; gap:1px; }
-        .anom-row {
-            display: grid;
-            grid-template-columns: 6px 1fr auto;
-            gap: 12px;
-            align-items: start;
-            padding: 13px 0;
-            border-bottom: 1px solid var(--g1);
-        }
-        .anom-row:last-child { border-bottom:none; }
-        .sev { width:6px; height:6px; border-radius:50%; margin-top:5px; }
-        .sev.h { background:var(--red); }
-        .sev.m { background:var(--amber); }
-        .sev.l { background:var(--g3); }
-        .anom-t { font-size:12px; font-weight:600; color:var(--g7); }
-        .anom-d { font-size:11px; color:var(--g4); line-height:1.55; margin-top:2px; }
-        .anom-meta { text-align:right; white-space:nowrap; }
-        .anom-conf { font-size:11px; font-weight:700; color:var(--g6); }
-        .anom-ts { font-size:10px; color:var(--g3); }
-
-        /* PROVIDER BRIEF */
-        .prov {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--g1);
-        }
-        .av {
-            width: 36px; height: 36px; border-radius: 8px;
-            background: var(--navy); color: var(--white);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 700; flex-shrink: 0;
-        }
-        .prov-name { font-size: 13px; font-weight: 600; color: var(--navy); }
-        .prov-cat { font-size: 11px; color: var(--g4); }
-        .prov-rating { margin-left:auto; font-size:13px; font-weight:700; color:var(--navy); }
-        .prov-rating span { color:var(--coral); margin-right:4px; font-size:12px; }
-
-        .brief { padding: 18px 20px; }
-        .brief-label {
-            font-size: 9px; font-weight: 700; letter-spacing: 1.2px;
-            text-transform: uppercase; color: var(--g3); margin-bottom: 8px;
-        }
-        .brief-text { font-size: 12px; color: var(--g5); line-height: 1.7; margin-bottom: 16px; }
-        .tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
-        .tag {
-            font-size: 10px; font-weight: 600; padding: 3px 10px;
-            border-radius: 3px; border: 1px solid;
-        }
-        .tag.pos { color:#16883e; background:var(--green-dim); border-color:rgba(30,163,84,0.15); }
-        .tag.neu { color:var(--blue); background:var(--blue-dim); border-color:rgba(52,120,246,0.15); }
-        .tag.neg { color:var(--red); background:var(--red-dim); border-color:rgba(217,64,64,0.15); }
-        .tri-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-        .tri-m {
-            text-align:center; padding:12px 6px;
-            background:var(--g0); border-radius:6px;
-        }
-        .tri-m b { display:block; font-size:17px; font-weight:700; color:var(--navy); }
-        .tri-m small { font-size:10px; color:var(--g4); }
-
-        /* INTENT TABLE */
-        .it { width:100%; border-collapse:collapse; }
-        .it th {
-            text-align:left; font-size:10px; font-weight:600;
-            color:var(--g3); text-transform:uppercase; letter-spacing:.6px;
-            padding:0 14px 12px; border-bottom:1px solid var(--g1);
-        }
-        .it td { padding:12px 14px; border-bottom:1px solid var(--g1); vertical-align:middle; }
-        .it tr:last-child td { border-bottom:none; }
-        .it tr:hover td { background:var(--g0); }
-        .buyer { display:flex; align-items:center; gap:10px; }
-        .buyer .av { width:28px; height:28px; font-size:10px; border-radius:6px; }
-        .buyer-n { font-size:12px; font-weight:600; color:var(--navy); }
-        .buyer-c { font-size:10px; color:var(--g4); }
-        .bar-wrap { display:flex; align-items:center; gap:8px; min-width:140px; }
-        .bar { flex:1; height:4px; background:var(--g1); border-radius:2px; overflow:hidden; }
-        .bar-f { height:100%; border-radius:2px; transition:width 1s ease; }
-        .bar-f.hi { background:var(--green); }
-        .bar-f.md { background:var(--amber); }
-        .bar-f.lo { background:var(--g3); }
-        .sc { font-size:12px; font-weight:700; min-width:24px; text-align:right; }
-        .sc.hi { color:var(--green); }
-        .sc.md { color:var(--amber); }
-        .sc.lo { color:var(--g4); }
-        .sigs { display:flex; flex-wrap:wrap; gap:4px; }
-        .sig {
-            font-size:10px; font-weight:500; padding:2px 7px;
-            border-radius:3px; background:var(--g0); color:var(--g5);
-            border:1px solid var(--g1);
-        }
-        .btn {
-            font-size:11px; font-weight:600; padding:5px 12px;
-            border-radius:5px; border:none; cursor:pointer;
-        }
-        .btn.p { background:var(--coral); color:var(--white); }
-        .btn.p:hover { background:#c9492e; }
-        .btn.s { background:var(--g0); color:var(--g5); border:1px solid var(--g2); }
-        .btn.s:hover { background:var(--g1); }
-
-        /* COMPARISON */
-        .comp { display:grid; grid-template-columns:1fr 1fr; }
-        .comp-col { padding:18px 20px; }
-        .comp-col + .comp-col { border-left:1px solid var(--g1); }
-        .comp-h { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
-        .comp-h .av { width:28px; height:28px; font-size:10px; }
-        .comp-name { font-size:12px; font-weight:600; color:var(--navy); }
-        .comp-sub { font-size:10px; color:var(--g4); }
-        .hbar { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-        .hbar-l { font-size:11px; color:var(--g4); width:80px; flex-shrink:0; }
-        .hbar-t { flex:1; height:5px; background:var(--g1); border-radius:3px; overflow:hidden; }
-        .hbar-f { height:100%; border-radius:3px; transition:width .8s ease; }
-        .hbar-f.coral { background:var(--coral); }
-        .hbar-f.navy { background:var(--navy); }
-        .hbar-v { font-size:11px; font-weight:700; color:var(--navy); min-width:22px; text-align:right; }
-
-        /* METRICS */
-        .mrow {
-            display:flex; justify-content:space-between; align-items:center;
-            padding:11px 0; border-bottom:1px solid var(--g1);
-        }
-        .mrow:last-child { border-bottom:none; }
-        .mrow-l { font-size:12px; color:var(--g4); }
-        .mrow-v { font-size:13px; font-weight:700; color:var(--navy); }
-        .mrow-v .up { color:var(--green); font-size:10px; font-weight:600; margin-left:4px; }
-        .mrow-v .dn { color:var(--red); font-size:10px; font-weight:600; margin-left:4px; }
-
-        /* FOOTER */
-        footer {
-            text-align:center; padding:32px;
-            border-top:1px solid var(--g1); margin-top:8px;
-        }
-        footer p { font-size:11px; color:var(--g3); line-height:1.6; }
-        footer strong { color:var(--g5); }
-
-        @media(max-width:860px) {
-            .r3,.r2 { grid-template-columns:1fr; }
-            .comp { grid-template-columns:1fr; }
-            .comp-col + .comp-col { border-left:none; border-top:1px solid var(--g1); }
-            .kpi-row { flex-direction:column; gap:20px; }
-            nav, .wrap { padding-left:16px; padding-right:16px; }
-            .hero { padding:40px 16px 36px; }
-            .hero h1 { font-size:24px; }
-        }
-    </style>
+    <title>Clutch · AI Data Layer Prototype</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<nav>
-    <div class="nav-left">
-        <div class="wordmark">clutch<span>.</span></div>
-        <span class="env-tag">Review Intelligence</span>
+<!-- PROTOTYPE BANNER -->
+<div class="proto-banner">
+    <b>Prototype</b><span>·</span>AI Data Layer Concept<span>·</span>Prepared for Clutch Product Team
+</div>
+
+<!-- UTILITY BAR -->
+<div class="utility-bar">
+    <div class="utility-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Search">
     </div>
+    <a href="#">Leave a Review</a>
+    <a href="#">For Providers</a>
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <a href="#">Sign In</a>
+    <button class="join">Join</button>
+</div>
+
+<!-- MAIN NAV -->
+<nav class="main">
+    <div class="logo">Clu<span class="t">t</span>ch</div>
     <div class="nav-links">
-        <a href="#" class="on">Dashboard</a>
-        <a href="#">Anomalies</a>
-        <a href="#">Intent</a>
-        <a href="#">Reports</a>
+        <a href="#">Development</a>
+        <a href="#">IT Services</a>
+        <a href="#">Marketing</a>
+        <a href="#">Design</a>
+        <a href="#">Business Services</a>
+        <a href="#">Pricing & Packages</a>
+        <a href="#">Resources</a>
+        <button class="btn-post">Post a Project</button>
     </div>
 </nav>
 
+<!-- ========================================================
+     HERO · Step 2 matching, brought to the top as the familiar
+     human-facing entry point. The MCP layer is the same engine.
+     ======================================================== -->
 <section class="hero">
-    <h1>Turn Review Data Into Revenue Intelligence</h1>
-    <p>AI that protects review integrity, surfaces actionable buyer signals, and helps providers close faster.</p>
-    <div class="kpi-row">
-        <div class="kpi"><b>94<span>%</span></b><small>Fraud Detection Rate</small></div>
-        <div class="kpi"><b>3.2<span>x</span></b><small>Faster Shortlisting</small></div>
-        <div class="kpi"><b>+41<span>%</span></b><small>Lead Conversion Lift</small></div>
-        <div class="kpi"><b>2.1<span>M</span></b><small>Reviews Analyzed</small></div>
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-eyebrow">The AI Data Layer for B2B Buying</div>
+            <h1>Connect with trusted companies — and the <em>AI agents</em> researching them.</h1>
+            <p class="lede">Today humans browse Clutch. Tomorrow AI agents will research vendors on behalf of companies. <b>Clutch's 2M+ verified reviews become the backend data layer for both</b> — one structured intelligence system, serving every buyer, everywhere.</p>
+
+            <div class="match-toggle">
+                <button class="on" data-mode="match">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8h6.1l-4.9 3.6 1.9 5.8-4.9-3.6-4.9 3.6 1.9-5.8-4.9-3.6h6.1z"/></svg>
+                    Let us match you
+                </button>
+                <button data-mode="browse">Browse on your own</button>
+            </div>
+
+            <div class="match-row">
+                <div class="match-input-wrap">
+                    <input type="text" id="matchInput" placeholder="Describe your project in your own words…">
+                </div>
+                <button class="btn-match" id="matchBtn">
+                    <span class="lbl">Get Matched</span>
+                    <span class="spin"></span>
+                </button>
+            </div>
+
+            <div class="popular">
+                <span class="popular-lbl">Popular searches</span>
+                <button class="chip-search" data-preset="hipaa" data-q="HIPAA-compliant digital marketing agency, strong SEO, ~$10K/month, US-based, hospital-system experience">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                    HIPAA marketing agency
+                </button>
+                <button class="chip-search" data-preset="shopify" data-q="Shopify to headless migration for a healthcare ecommerce store, compliance-aware">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                    Shopify migration · healthcare
+                </button>
+                <button class="chip-search" data-preset="soc2" data-q="SOC2 audit prep for a Series B SaaS, need fractional compliance support">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                    SOC2 audit prep · SaaS
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-card">
+                <div class="hc-badge">BEST MATCH · AI RECOMMENDED</div>
+                <div class="hc-head">
+                    <div class="sc-av coral">ST</div>
+                    <div style="flex:1; min-width:0;">
+                        <div class="sc-name">SilverThread Technologies</div>
+                        <div class="sc-verified">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 7.4H22l-6 4.3 2.3 7.3L12 14.8l-6.3 4.2L8 11.7 2 7.4h7.6z"/></svg>
+                            Premier Verified
+                        </div>
+                    </div>
+                    <div class="sc-match-pill">94%</div>
+                </div>
+                <div class="sc-stars">
+                    <span class="stars">★★★★★</span>
+                    <b>4.8</b>
+                    <span class="reviews">47 reviews</span>
+                </div>
+                <div class="sc-tags">
+                    <span class="sc-tag">HIPAA</span>
+                    <span class="sc-tag">Healthcare SEO</span>
+                    <span class="sc-tag">Hospital systems</span>
+                </div>
+                <div class="sc-why"><b>Why this match:</b> 12 verified healthcare projects with hospital systems, HIPAA-certified, reviews cite SEO depth in regulated industries.</div>
+                <div class="hc-foot">
+                    <div class="hc-foot-label">Pricing</div>
+                    <div class="hc-foot-val">$8K–$12K / mo</div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
+<!-- ========================================================
+     MATCH RESULTS (revealed on search)
+     ======================================================== -->
+<div class="results" id="results">
+    <div class="results-head">
+        <h2>AI found <em>3 strong matches</em> for "<span id="resultsQuery">your brief</span>"</h2>
+        <div class="results-count"><b>124,990</b> providers considered · ranked by match strength</div>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-chip on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Premier Verified</button>
+        <button class="filter-chip on">HIPAA compliant</button>
+        <button class="filter-chip">US-based</button>
+        <button class="filter-chip">$8K–$12K / mo</button>
+        <button class="filter-chip">Hospital systems</button>
+        <button class="filter-chip">Sort: Match score</button>
+    </div>
+
+    <div class="match-grid">
+        <div class="match-card top">
+            <div class="match-rank">Best Match</div>
+            <div class="match-head">
+                <div class="av a">ST</div>
+                <div>
+                    <div class="match-name">SilverThread Technologies</div>
+                    <div class="match-loc">Washington, DC · 45 team</div>
+                    <div class="match-verified">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10.5 4.5-1 8-5.5 8-10.5V6z"/></svg>
+                        Premier Verified
+                    </div>
+                </div>
+            </div>
+            <div class="match-score-row">
+                <span class="match-score-label">Match</span>
+                <div class="match-score-bar"><div class="match-score-bar-f" data-w="94%" style="width:94%"></div></div>
+                <div class="match-score-v">94</div>
+            </div>
+            <div class="match-why"><b>Why:</b> 12 verified healthcare projects (8 with hospital systems), HIPAA-certified infrastructure, reviews consistently cite SEO depth for regulated industries.</div>
+            <div class="match-chips">
+                <span class="chip p">HIPAA</span>
+                <span class="chip p">Healthcare SEO</span>
+                <span class="chip p">Hospital systems</span>
+                <span class="chip">47 reviews · 4.8★</span>
+            </div>
+            <div class="match-footer">
+                <div>
+                    <div class="match-footer-label">Pricing</div>
+                    <div class="match-footer-val">$8K–$12K / mo</div>
+                </div>
+                <button class="btn-profile" data-action="profile" data-name="SilverThread">View Profile</button>
+            </div>
+        </div>
+
+        <div class="match-card">
+            <div class="match-rank">Strong Fit</div>
+            <div class="match-head">
+                <div class="av b">NX</div>
+                <div>
+                    <div class="match-name">NexaBuild Digital</div>
+                    <div class="match-loc">Austin, TX · 28 team</div>
+                    <div class="match-verified">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10.5 4.5-1 8-5.5 8-10.5V6z"/></svg>
+                        Verified
+                    </div>
+                </div>
+            </div>
+            <div class="match-score-row">
+                <span class="match-score-label">Match</span>
+                <div class="match-score-bar"><div class="match-score-bar-f" data-w="87%" style="width:87%"></div></div>
+                <div class="match-score-v">87</div>
+            </div>
+            <div class="match-why"><b>Why:</b> Strong SEO reviews across regulated industries (finance + health). HIPAA capable but fewer hospital-system projects than top match.</div>
+            <div class="match-chips">
+                <span class="chip p">SEO</span>
+                <span class="chip p">Regulated industries</span>
+                <span class="chip">31 reviews · 4.6★</span>
+            </div>
+            <div class="match-footer">
+                <div>
+                    <div class="match-footer-label">Pricing</div>
+                    <div class="match-footer-val">$7K–$10K / mo</div>
+                </div>
+                <button class="btn-profile" data-action="profile" data-name="NexaBuild">View Profile</button>
+            </div>
+        </div>
+
+        <div class="match-card">
+            <div class="match-rank">Worth Considering</div>
+            <div class="match-head">
+                <div class="av c">HP</div>
+                <div>
+                    <div class="match-name">Helix Performance</div>
+                    <div class="match-loc">Boston, MA · 62 team</div>
+                    <div class="match-verified">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10.5 4.5-1 8-5.5 8-10.5V6z"/></svg>
+                        Verified
+                    </div>
+                </div>
+            </div>
+            <div class="match-score-row">
+                <span class="match-score-label">Match</span>
+                <div class="match-score-bar"><div class="match-score-bar-f" data-w="78%" style="width:78%"></div></div>
+                <div class="match-score-v">78</div>
+            </div>
+            <div class="match-why"><b>Why:</b> Deep healthcare client list but primarily paid-media focused. SEO is a growing service — only 4 of last 20 reviews mention it prominently.</div>
+            <div class="match-chips">
+                <span class="chip p">Healthcare focus</span>
+                <span class="chip">Paid media primary</span>
+                <span class="chip">58 reviews · 4.7★</span>
+            </div>
+            <div class="match-footer">
+                <div>
+                    <div class="match-footer-label">Pricing</div>
+                    <div class="match-footer-val">$9K–$14K / mo</div>
+                </div>
+                <button class="btn-profile" data-action="profile" data-name="Helix">View Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="wrap">
 
-    <!-- PILLARS -->
-    <div class="row r3">
-        <div class="c feat">
-            <div class="feat-icon a">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <!-- ECOSYSTEM DIAGRAM -->
+    <div class="eco" style="margin-top:24px;">
+        <div class="eco-title">How it fits together</div>
+        <div class="eco-sub">Not four features — <em>one AI ecosystem</em> with Clutch's data at the center</div>
+        <div class="eco-grid">
+            <div class="eco-node">
+                <div class="eco-node-num">Foundation</div>
+                <div class="eco-node-title">Review Intelligence</div>
+                <div class="eco-node-desc">Structures every review into themes, sentiment, and trends</div>
             </div>
-            <h4>Anomaly Detection</h4>
-            <p>Models trained on a decade of verified reviews flag coordinated submissions, sentiment mismatches, and templated language before they reach buyers.</p>
+            <div class="eco-arrow">→</div>
+            <div class="eco-node">
+                <div class="eco-node-num">Engine</div>
+                <div class="eco-node-title">Intelligent Matching</div>
+                <div class="eco-node-desc">Natural-language briefs return ranked providers with reasoning</div>
+            </div>
+            <div class="eco-arrow hi">→</div>
+            <div class="eco-node center">
+                <div class="eco-node-num">Centerpiece</div>
+                <div class="eco-node-title">MCP Agent Layer</div>
+                <div class="eco-node-desc">Any AI assistant queries Clutch directly — the data goes everywhere agents are</div>
+            </div>
+            <div class="eco-arrow">→</div>
+            <div class="eco-node">
+                <div class="eco-node-num">Loop</div>
+                <div class="eco-node-title">Provider Demand</div>
+                <div class="eco-node-desc">Providers see what buyers and agents are searching for, adjust supply</div>
+            </div>
         </div>
-        <div class="c feat">
-            <div class="feat-icon b">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h4>AI Provider Briefs</h4>
-            <p>Distills hundreds of long-form reviews into structured summaries with extracted themes, strengths, risks, and best-fit recommendations.</p>
-        </div>
-        <div class="c feat">
-            <div class="feat-icon d">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            </div>
-            <h4>Buyer Intent Scoring</h4>
-            <p>Behavioral signals scored in real time. Providers on Clutch+ see purchase probability, project indicators, and recommended outreach windows.</p>
+        <div class="eco-caption">
+            <b>Read it like this →</b> Review Intelligence structures the data. Matching uses it to recommend providers. The MCP layer makes all of it queryable by AI agents worldwide. Provider Demand closes the loop by showing providers what to build next.
         </div>
     </div>
 
-    <!-- ANOMALIES + BRIEF -->
-    <div class="row r2">
+
+    <!-- ================================================
+         STEP 1 · MCP AGENT LAYER (CENTERPIECE)
+         ================================================ -->
+    <div class="step" id="agents">
+        <div class="step-top">
+            <div class="step-num">1</div>
+            <div>
+                <div class="step-label">Step 01 · The Big Vision</div>
+                <div class="step-title">Agent Data Layer — an MCP server exposing Clutch to every AI assistant</div>
+            </div>
+        </div>
+        <div class="step-value">
+            <b>Why it matters:</b> buying behavior is shifting from humans browsing websites to AI agents researching on their behalf. Clutch's moat — <em>verified, structured, trusted B2B review data</em> — is the thing every agent needs. By publishing an MCP server, Clutch becomes the default data layer for B2B purchasing decisions everywhere, not just on clutch.co. <b>Every query is a monetization event</b> — same economic unit as a click today, routed through a new channel with first-mover advantage.
+        </div>
+    </div>
+
+    <div class="mcp-wrap">
+        <div class="mcp-head">
+            <div class="mcp-title">
+                <h3>Clutch MCP Server</h3>
+                <span class="mcp-badge">mcp://clutch.co/v1</span>
+            </div>
+            <div class="mcp-live"><span class="dot"></span><b id="mcpCounter">18,427</b> queries this week · live</div>
+        </div>
+
+        <!-- PRESET QUERIES -->
+        <div class="mcp-controls">
+            <span class="mcp-ctrl-label">Try a preset</span>
+            <button class="mcp-chip on" data-mcp-query="hipaa">HIPAA marketing search</button>
+            <button class="mcp-chip" data-mcp-query="shopify">Shopify migration match</button>
+            <button class="mcp-chip" data-mcp-query="compare">Compare providers</button>
+            <button class="mcp-chip" data-mcp-query="reviews">Sentiment breakdown</button>
+            <button class="mcp-run" id="mcpRun">
+                <span class="txt">Run Query</span>
+                <span class="spin"></span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+
+        <!-- REQUEST / RESPONSE FLOW -->
+        <div class="mcp-flow">
+            <div class="mcp-panel">
+                <div class="mcp-panel-label"><span class="chev">▸</span>External AI Agent Request</div>
+                <div class="mcp-query-meta">
+                    <div class="mcp-agent-av claude" id="mcpAgentAv">C</div>
+                    <div>
+                        <div class="mcp-agent-n" id="mcpAgentName">Enterprise Agent · Claude</div>
+                        <div class="mcp-agent-c" id="mcpAgentClient">Acting on behalf of Meridian Health Systems</div>
+                    </div>
+                </div>
+                <div class="mcp-query" id="mcpAgentQuery">"Find me a HIPAA-compliant digital marketing agency with SEO specialization in healthcare. Budget around $10K/month, US-based, hospital-system experience."</div>
+                <div class="code" id="mcpRequest"></div>
+            </div>
+
+            <div class="mcp-panel">
+                <div class="mcp-panel-label"><span class="chev">◂</span>Clutch Verified Response</div>
+                <div class="mcp-query-meta">
+                    <div class="mcp-agent-av" style="background:linear-gradient(135deg, var(--coral), var(--coral-2))">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10.5 4.5-1 8-5.5 8-10.5V6z"/></svg>
+                    </div>
+                    <div>
+                        <div class="mcp-agent-n">Clutch MCP · v1</div>
+                        <div class="mcp-agent-c">Cited from 2.1M verified reviews · referral routed</div>
+                    </div>
+                </div>
+                <div class="code" id="mcpResponse">
+                    <div class="code-empty">Click <b style="color:var(--coral-2)">Run Query</b> to stream the live MCP response</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOOLS EXPOSED -->
+        <div class="mcp-tools-label">Tools exposed to agents</div>
+        <div class="mcp-tools">
+            <div class="mcp-tool">
+                <div class="mcp-tool-name">clutch.search_providers</div>
+                <div class="mcp-tool-desc">Filter 200K+ verified providers by category, location, budget, compliance</div>
+            </div>
+            <div class="mcp-tool">
+                <div class="mcp-tool-name">clutch.get_provider</div>
+                <div class="mcp-tool-desc">Full profile, verified reviews, past projects, pricing tiers</div>
+            </div>
+            <div class="mcp-tool">
+                <div class="mcp-tool-name">clutch.get_reviews</div>
+                <div class="mcp-tool-desc">Review text filtered by category, with sentiment and theme tagging</div>
+            </div>
+            <div class="mcp-tool">
+                <div class="mcp-tool-name">clutch.compare_providers</div>
+                <div class="mcp-tool-desc">Side-by-side AI-generated comparison across 2–5 providers</div>
+            </div>
+            <div class="mcp-tool">
+                <div class="mcp-tool-name">clutch.recommend</div>
+                <div class="mcp-tool-desc">Natural-language brief → ranked matches with reasoning</div>
+            </div>
+            <div class="mcp-tool">
+                <div class="mcp-tool-name">clutch.route_lead</div>
+                <div class="mcp-tool-desc">Send qualified intent to provider. Billable monetization event.</div>
+            </div>
+        </div>
+
+        <!-- FOOTER STATS + CLIENTS -->
+        <div class="mcp-footer">
+            <div>
+                <div class="mcp-panel-label" style="margin-bottom:8px;">Supported clients</div>
+                <div class="mcp-clients">
+                    <span class="mcp-client"><span class="mcp-client-dot"></span><b>Claude</b></span>
+                    <span class="mcp-client"><span class="mcp-client-dot"></span><b>ChatGPT</b></span>
+                    <span class="mcp-client"><span class="mcp-client-dot"></span><b>Enterprise</b></span>
+                    <span class="mcp-client"><span class="mcp-client-dot"></span><b>Cursor · Copilot</b></span>
+                </div>
+            </div>
+            <div class="mcp-stat">
+                <b>$4.20<span>/q</span></b>
+                <small>Avg. referral</small>
+            </div>
+            <div class="mcp-stat">
+                <b>96<span>%</span></b>
+                <small>Query → match</small>
+            </div>
+            <div class="mcp-stat">
+                <b>2.1<span>M</span></b>
+                <small>Reviews indexed</small>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================================================
+         STEP 2 · INTELLIGENT BUYER MATCHING
+         (anchor section — pointing back to hero demo)
+         ================================================ -->
+    <div class="step" id="matching">
+        <div class="step-top">
+            <div class="step-num">2</div>
+            <div>
+                <div class="step-label">Step 02 · On-Platform Matching</div>
+                <div class="step-title">Intelligent Buyer Matching — the same engine, for human buyers on clutch.co</div>
+            </div>
+        </div>
+        <div class="step-value">
+            <b>Why it matters:</b> the MCP layer serves external agents. This is the human-facing equivalent — buyers describe their project in plain English instead of clicking filters, and the same AI that serves Claude and ChatGPT returns ranked providers with clear reasoning. <em>It gets smarter over time by tracking which matches lead to closed projects.</em> <b>Scroll up to the hero</b> or click the floating "I need a recommendation…" pill to try it live.
+        </div>
+    </div>
+
+    <div class="c" style="margin-bottom:16px;">
+        <div class="c-head">
+            <h3>Natural Language Matching · Interactive Demo</h3>
+            <span class="pill live"><span class="dot"></span>Live</span>
+        </div>
+        <div class="c-body" style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+            <div style="flex:1; min-width: 260px;">
+                <div class="brief-label">Try it now — 2 ways</div>
+                <div style="font-size: 13px; color: var(--body); line-height: 1.7; margin-bottom: 14px;">
+                    <b style="color:var(--ink)">①</b> Click a <b>popular search chip</b> at the top of the page → hit <b>Get Matched</b>.<br>
+                    <b style="color:var(--ink)">②</b> Click the <b style="color:var(--coral)">"I need a recommendation…"</b> pill in the bottom-right → talk to the agent.
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn p" onclick="document.getElementById('matchInput').focus(); window.scrollTo({top:0, behavior:'smooth'})">↑ Try matching</button>
+                    <button class="btn s" onclick="document.getElementById('floatPill').click()">💬 Open agent chat</button>
+                </div>
+            </div>
+            <div style="flex:1; min-width: 260px; background: var(--bg-alt); padding:18px; border-radius: 10px;">
+                <div class="brief-label">What makes this different from filters</div>
+                <div style="font-size:12.5px; color: var(--body); line-height: 1.7;">
+                    Instead of clicking 8 dropdowns, buyers describe what they need. The model reasons across <b style="color:var(--ink)">provider profiles, reviews, past projects, pricing, and outcomes</b> — and returns matches with <em>plain-english reasoning for each pick</em>. That's the same output the MCP layer gives to AI agents.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================================================
+         STEP 3 · REVIEW INTELLIGENCE
+         ================================================ -->
+    <div class="step" id="reviews">
+        <div class="step-top">
+            <div class="step-num">3</div>
+            <div>
+                <div class="step-label">Step 03 · The Foundation</div>
+                <div class="step-title">Review Intelligence — structured data that makes everything above possible</div>
+            </div>
+        </div>
+        <div class="step-value">
+            <b>Why it matters:</b> agents and matching engines are only as good as the data they reason over. This layer turns every review into structured signal — sentiment by category, theme extraction, trend detection over time, and anomaly flagging. <em>Without this, there's no AI data layer. With it, Clutch has the only one that's trusted.</em>
+        </div>
+    </div>
+
+    <div class="row r2-wide">
+        <!-- PROVIDER BRIEF -->
         <div class="c">
             <div class="c-head">
-                <h3>Anomaly Feed</h3>
+                <h3>AI Provider Brief</h3>
+                <span class="pill auto">Auto-generated · 47 reviews</span>
+            </div>
+            <div class="prov">
+                <div class="av b">ST</div>
+                <div>
+                    <div class="prov-name">SilverThread Technologies <span class="prov-verified">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10.5 4.5-1 8-5.5 8-10.5V6z"/></svg>Premier
+                    </span></div>
+                    <div class="prov-cat">Custom Software · Washington, DC</div>
+                </div>
+                <div class="prov-rating"><span class="star">★</span>4.8</div>
+            </div>
+            <div class="brief">
+                <div class="brief-label">Plain-english summary</div>
+                <div class="brief-text">Consistently praised for technical depth in complex integrations and responsiveness to scope changes. Clients in healthcare and fintech highlight strong compliance awareness. Two recurring concerns: discovery phases run long, and documentation handoffs need more structure. <b style="color:var(--ink)">Best fit for mid-market companies with compliance-sensitive projects.</b></div>
+
+                <div class="brief-label">Sentiment by category</div>
+                <div class="sent">
+                    <div class="sent-row">
+                        <span class="sent-lbl">Communication</span>
+                        <div class="sent-t"><div class="sent-pos" data-w="94%" style="width:94%"></div><div class="sent-neg" data-w="2%" style="width:2%"></div></div>
+                        <span class="sent-v">94%</span>
+                    </div>
+                    <div class="sent-row">
+                        <span class="sent-lbl">Technical Skill</span>
+                        <div class="sent-t"><div class="sent-pos" data-w="91%" style="width:91%"></div><div class="sent-neg" data-w="4%" style="width:4%"></div></div>
+                        <span class="sent-v">91%</span>
+                    </div>
+                    <div class="sent-row">
+                        <span class="sent-lbl">Budget</span>
+                        <div class="sent-t"><div class="sent-pos" data-w="82%" style="width:82%"></div><div class="sent-neg" data-w="9%" style="width:9%"></div></div>
+                        <span class="sent-v">82%</span>
+                    </div>
+                    <div class="sent-row">
+                        <span class="sent-lbl">Delivery Speed</span>
+                        <div class="sent-t"><div class="sent-pos" data-w="68%" style="width:68%"></div><div class="sent-neg" data-w="22%" style="width:22%"></div></div>
+                        <span class="sent-v">68%</span>
+                    </div>
+                    <div class="sent-row">
+                        <span class="sent-lbl">Responsiveness</span>
+                        <div class="sent-t"><div class="sent-pos" data-w="89%" style="width:89%"></div><div class="sent-neg" data-w="5%" style="width:5%"></div></div>
+                        <span class="sent-v">89%</span>
+                    </div>
+                </div>
+
+                <div class="brief-label">Trend signal · last 6 months</div>
+                <div class="trend">
+                    <div class="trend-ico">!</div>
+                    <div class="trend-text"><b>Scope-creep mentions ↑ in 3 of last 10 reviews</b> — up from 1 of 10 in the prior period. Not yet a pattern, but flagged for sales and provider success.</div>
+                </div>
+
+                <div class="brief-label">Themes extracted</div>
+                <div class="tags">
+                    <span class="tag pos">Technical Depth</span>
+                    <span class="tag pos">Compliance Aware</span>
+                    <span class="tag pos">Responsive</span>
+                    <span class="tag neu">Mid-Market Fit</span>
+                    <span class="tag neg">Slow Discovery</span>
+                    <span class="tag neg">Docs Gaps</span>
+                </div>
+
+                <div class="tri-metrics">
+                    <div class="tri-m"><b>92%</b><small>Recommend</small></div>
+                    <div class="tri-m"><b>$185K</b><small>Avg. Project</small></div>
+                    <div class="tri-m"><b>8.4mo</b><small>Avg. Engagement</small></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANOMALY FEED -->
+        <div class="c">
+            <div class="c-head">
+                <h3>Anomaly & Fraud Feed</h3>
                 <span class="pill live"><span class="dot"></span>Live</span>
             </div>
             <div class="c-body">
+                <div class="anom-note">
+                    <b>Why this lives here →</b> if fake or gamed reviews reach the matching engine or MCP layer, agents will cite garbage. Data integrity is a prerequisite for the whole ecosystem.
+                </div>
                 <div class="anom">
                     <div class="anom-row">
                         <div class="sev h"></div>
@@ -421,136 +581,254 @@
                         <div class="sev l"></div>
                         <div>
                             <div class="anom-t">Unusual rating distribution</div>
-                            <div class="anom-d">NovaTech shows 100% five-star reviews (n=23). Deviates 2.4 sigma from category norm.</div>
+                            <div class="anom-d">NovaTech shows 100% five-star reviews (n=23). Deviates 2.4σ from category norm.</div>
                         </div>
                         <div class="anom-meta"><div class="anom-conf">64%</div><div class="anom-ts">2h ago</div></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <!-- SIDE-BY-SIDE COMPARISON -->
+    <div class="c" style="margin-bottom:16px;">
+        <div class="c-head">
+            <h3>Side-by-Side AI Comparison</h3>
+            <span class="c-subhead">Structured review data → instant comparison for buyers and agents</span>
+        </div>
+        <div class="comp">
+            <div class="comp-col">
+                <div class="comp-h">
+                    <div class="av b">ST</div>
+                    <div><div class="comp-name">SilverThread</div><div class="comp-sub">Recommended</div></div>
+                </div>
+                <div class="hbar"><span class="hbar-l">Quality</span><div class="hbar-t"><div class="hbar-f coral" data-w="92%" style="width:92%"></div></div><span class="hbar-v">4.8</span></div>
+                <div class="hbar"><span class="hbar-l">Timeliness</span><div class="hbar-t"><div class="hbar-f coral" data-w="78%" style="width:78%"></div></div><span class="hbar-v">4.1</span></div>
+                <div class="hbar"><span class="hbar-l">Cost Value</span><div class="hbar-t"><div class="hbar-f coral" data-w="85%" style="width:85%"></div></div><span class="hbar-v">4.4</span></div>
+                <div class="hbar"><span class="hbar-l">Communication</span><div class="hbar-t"><div class="hbar-f coral" data-w="94%" style="width:94%"></div></div><span class="hbar-v">4.9</span></div>
+            </div>
+            <div class="comp-col">
+                <div class="comp-h">
+                    <div class="av" style="background:var(--navy-3)">NX</div>
+                    <div><div class="comp-name">NexaBuild</div><div class="comp-sub">Alternative</div></div>
+                </div>
+                <div class="hbar"><span class="hbar-l">Quality</span><div class="hbar-t"><div class="hbar-f navy" data-w="86%" style="width:86%"></div></div><span class="hbar-v">4.5</span></div>
+                <div class="hbar"><span class="hbar-l">Timeliness</span><div class="hbar-t"><div class="hbar-f navy" data-w="90%" style="width:90%"></div></div><span class="hbar-v">4.7</span></div>
+                <div class="hbar"><span class="hbar-l">Cost Value</span><div class="hbar-t"><div class="hbar-f navy" data-w="72%" style="width:72%"></div></div><span class="hbar-v">3.8</span></div>
+                <div class="hbar"><span class="hbar-l">Communication</span><div class="hbar-t"><div class="hbar-f navy" data-w="82%" style="width:82%"></div></div><span class="hbar-v">4.3</span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================================================
+         STEP 4 · PROVIDER DEMAND INTELLIGENCE
+         ================================================ -->
+    <div class="step" id="demand">
+        <div class="step-top">
+            <div class="step-num">4</div>
+            <div>
+                <div class="step-label">Step 04 · Closing the Loop</div>
+                <div class="step-title">Provider Demand Intelligence — show providers what buyers and agents are searching for</div>
+            </div>
+        </div>
+        <div class="step-value">
+            <b>Why it matters:</b> every search — human or agent — is a demand signal. Surfacing unmet demand back to providers helps them adjust service offerings, case studies, and categories to match what the market actually wants. <em>Supply catches up to demand, match quality improves, and Clutch+ upsell is justified with data.</em>
+        </div>
+    </div>
+
+    <div class="row r2-wide">
+        <!-- DEMAND GAPS -->
         <div class="c">
             <div class="c-head">
-                <h3>AI Provider Brief</h3>
-                <span class="pill auto">Auto-generated</span>
+                <h3>Demand vs. Supply Gaps · This Month</h3>
+                <span class="pill live"><span class="dot"></span>Real-time</span>
+            </div>
+            <div style="padding:16px 20px 20px; overflow-x:auto;">
+                <table class="it">
+                    <thead><tr>
+                        <th>Search Pattern</th><th>Buyers</th><th>Providers</th><th>Gap</th>
+                    </tr></thead>
+                    <tbody>
+                        <tr class="gap-hi" data-gap="Shopify migration · healthcare">
+                            <td>
+                                <div class="buyer-n">Shopify migration · healthcare</div>
+                                <div class="buyer-c">12 agent queries · 8 direct searches</div>
+                            </td>
+                            <td><span class="sc coral">20</span></td>
+                            <td><span class="sc lo">3</span></td>
+                            <td><span class="gap-tag hi">High · 6.7×</span></td>
+                        </tr>
+                        <tr class="gap-hi" data-gap="HIPAA marketing · hospital systems">
+                            <td>
+                                <div class="buyer-n">HIPAA marketing · hospital systems</div>
+                                <div class="buyer-c">9 agent queries · 5 direct searches</div>
+                            </td>
+                            <td><span class="sc coral">14</span></td>
+                            <td><span class="sc lo">4</span></td>
+                            <td><span class="gap-tag hi">High · 3.5×</span></td>
+                        </tr>
+                        <tr data-gap="SOC2 audit prep · SaaS">
+                            <td>
+                                <div class="buyer-n">SOC2 audit prep · SaaS</div>
+                                <div class="buyer-c">6 agent queries · 11 direct searches</div>
+                            </td>
+                            <td><span class="sc md">17</span></td>
+                            <td><span class="sc md">9</span></td>
+                            <td><span class="gap-tag md">Medium · 1.9×</span></td>
+                        </tr>
+                        <tr data-gap="React Native · fintech mobile">
+                            <td>
+                                <div class="buyer-n">React Native · fintech mobile</div>
+                                <div class="buyer-c">4 agent queries · 18 direct searches</div>
+                            </td>
+                            <td><span class="sc md">22</span></td>
+                            <td><span class="sc hi">28</span></td>
+                            <td><span class="gap-tag lo">Balanced</span></td>
+                        </tr>
+                        <tr data-gap="Webflow → Next.js migration">
+                            <td>
+                                <div class="buyer-n">Webflow → Next.js migration</div>
+                                <div class="buyer-c">3 agent queries · 4 direct searches</div>
+                            </td>
+                            <td><span class="sc lo">7</span></td>
+                            <td><span class="sc hi">14</span></td>
+                            <td><span class="gap-tag lo">Oversupplied</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PROVIDER OPTIMIZATION -->
+        <div class="c">
+            <div class="c-head">
+                <h3>Profile Optimization</h3>
+                <span class="pill beta">For provider</span>
             </div>
             <div class="prov">
-                <div class="av">ST</div>
+                <div class="av b">AX</div>
                 <div>
-                    <div class="prov-name">SilverThread Technologies</div>
-                    <div class="prov-cat">Custom Software / Washington, DC</div>
+                    <div class="prov-name">Apex Digital</div>
+                    <div class="prov-cat">Digital Marketing · Atlanta, GA</div>
                 </div>
-                <div class="prov-rating"><span>&#9733;</span> 4.8</div>
             </div>
             <div class="brief">
-                <div class="brief-label">Summary from 47 verified reviews</div>
-                <div class="brief-text">Consistently praised for technical depth in complex integrations and responsiveness to scope changes. Clients in healthcare and fintech highlight strong compliance awareness. Two recurring concerns: discovery phases run long and documentation handoffs need more structure. Best fit for mid-market companies with compliance-sensitive projects.</div>
-                <div class="brief-label">Themes</div>
-                <div class="tags">
-                    <span class="tag pos">Technical Depth</span>
-                    <span class="tag pos">Compliance Aware</span>
-                    <span class="tag pos">Responsive</span>
-                    <span class="tag neu">Mid-Market Fit</span>
-                    <span class="tag neg">Slow Discovery</span>
-                    <span class="tag neg">Docs Gaps</span>
+                <div class="brief-label">AI-suggested actions · based on demand signals</div>
+
+                <div class="opt hi">
+                    <div class="opt-num">1</div>
+                    <div class="opt-text">Add <b>"Shopify migration"</b> to services. 20 healthcare buyers searched this month — only 3 providers match. Your past projects show 2 qualifying engagements.</div>
                 </div>
+                <div class="opt">
+                    <div class="opt-num">2</div>
+                    <div class="opt-text">Publish a <b>HIPAA case study</b>. 9 agent queries this week asked about compliance-aware marketing — your existing Meridian Health project fits.</div>
+                </div>
+                <div class="opt">
+                    <div class="opt-num">3</div>
+                    <div class="opt-text">Sharpen <b>SEO positioning</b>. Reviews praise it but profile headline emphasizes paid media.</div>
+                </div>
+
+                <div style="display:flex; gap:8px; margin: 14px 0 18px;">
+                    <button class="btn p" data-action="apply">Apply all suggestions</button>
+                    <button class="btn s">Dismiss</button>
+                </div>
+
+                <div class="brief-label">Projected impact if applied</div>
                 <div class="tri-metrics">
-                    <div class="tri-m"><b>92%</b><small>Recommend</small></div>
-                    <div class="tri-m"><b>$185K</b><small>Avg. Project</small></div>
-                    <div class="tri-m"><b>8.4mo</b><small>Avg. Engagement</small></div>
+                    <div class="tri-m"><b>+38%</b><small>Match Inclusion</small></div>
+                    <div class="tri-m"><b>+12</b><small>Leads / mo</small></div>
+                    <div class="tri-m"><b>3.1×</b><small>Agent Visibility</small></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- INTENT TABLE -->
+    <!-- BUYER INTENT -->
     <div class="c" style="margin-bottom:16px;">
         <div class="c-head">
-            <h3>Buyer Intent Signals</h3>
+            <h3>Buyer Intent Signals · Routed to Providers</h3>
             <span class="pill live"><span class="dot"></span>Real-time</span>
         </div>
         <div style="padding:16px 20px 20px; overflow-x:auto;">
             <table class="it">
                 <thead><tr>
-                    <th>Buyer</th><th>Intent</th><th>Signals</th><th>Est. Budget</th><th></th>
+                    <th>Buyer</th><th>Intent</th><th>Signals</th><th>Budget</th><th></th>
                 </tr></thead>
                 <tbody>
                     <tr>
-                        <td><div class="buyer"><div class="av">JR</div><div><div class="buyer-n">Jordan Rivera</div><div class="buyer-c">Meridian Health Systems</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" style="width:92%"></div></div><span class="sc hi">92</span></div></td>
+                        <td><div class="buyer"><div class="av a">JR</div><div><div class="buyer-n">Jordan Rivera</div><div class="buyer-c">Meridian Health Systems</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" data-w="92%" style="width:92%"></div></div><span class="sc hi">92</span></div></td>
                         <td><div class="sigs"><span class="sig">Compared 5 providers</span><span class="sig">Read 12 reviews</span><span class="sig">Repeat visitor</span></div></td>
-                        <td style="font-weight:600;color:var(--navy)">$150K+</td>
-                        <td><button class="btn p">Route Lead</button></td>
+                        <td style="font-weight:700;color:var(--ink)">$150K+</td>
+                        <td><button class="btn p" data-action="route" data-name="SilverThread">Route Lead</button></td>
                     </tr>
                     <tr>
-                        <td><div class="buyer"><div class="av">SK</div><div><div class="buyer-n">Sarah Kim</div><div class="buyer-c">Vertex Financial Group</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" style="width:85%"></div></div><span class="sc hi">85</span></div></td>
+                        <td><div class="buyer"><div class="av b">SK</div><div><div class="buyer-n">Sarah Kim</div><div class="buyer-c">Vertex Financial Group</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" data-w="85%" style="width:85%"></div></div><span class="sc hi">85</span></div></td>
                         <td><div class="sigs"><span class="sig">Downloaded shortlist</span><span class="sig">Filtered by budget</span><span class="sig">3 sessions</span></div></td>
-                        <td style="font-weight:600;color:var(--navy)">$75K-100K</td>
-                        <td><button class="btn p">Route Lead</button></td>
+                        <td style="font-weight:700;color:var(--ink)">$75K–100K</td>
+                        <td><button class="btn p" data-action="route" data-name="NexaBuild">Route Lead</button></td>
                     </tr>
                     <tr>
-                        <td><div class="buyer"><div class="av">MT</div><div><div class="buyer-n">Marcus Thompson</div><div class="buyer-c">Cascade Retail Co.</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f md" style="width:58%"></div></div><span class="sc md">58</span></div></td>
+                        <td><div class="buyer"><div class="av d">AG</div><div><div class="buyer-n">Agent · Claude <span class="buyer-tag">MCP</span></div><div class="buyer-c">on behalf of Cascade Retail Co.</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f coral" data-w="78%" style="width:78%"></div></div><span class="sc coral">78</span></div></td>
+                        <td><div class="sigs"><span class="sig mcp">compare_providers</span><span class="sig mcp">get_reviews</span><span class="sig">Enterprise workspace</span></div></td>
+                        <td style="font-weight:700;color:var(--ink)">$50K–75K</td>
+                        <td><button class="btn p" data-action="route" data-name="Apex Digital">Route Lead</button></td>
+                    </tr>
+                    <tr>
+                        <td><div class="buyer"><div class="av c">ML</div><div><div class="buyer-n">Marcus Thompson</div><div class="buyer-c">Cascade Retail Co.</div></div></div></td>
+                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f md" data-w="58%" style="width:58%"></div></div><span class="sc md">58</span></div></td>
                         <td><div class="sigs"><span class="sig">Browsed 2 categories</span><span class="sig">Early research</span></div></td>
-                        <td style="font-weight:600;color:var(--navy)">$50K-75K</td>
+                        <td style="font-weight:700;color:var(--ink)">$50K–75K</td>
                         <td><button class="btn s">Nurture</button></td>
-                    </tr>
-                    <tr>
-                        <td><div class="buyer"><div class="av">AL</div><div><div class="buyer-n">Anna Liu</div><div class="buyer-c">Helix Biotech</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f lo" style="width:31%"></div></div><span class="sc lo">31</span></div></td>
-                        <td><div class="sigs"><span class="sig">Single page view</span></div></td>
-                        <td style="font-weight:600;color:var(--navy)">Unknown</td>
-                        <td><button class="btn s">Monitor</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- COMPARISON + METRICS -->
-    <div class="row r2">
-        <div class="c">
-            <div class="c-head">
-                <h3>Provider Comparison</h3>
-                <span class="pill beta">Beta</span>
+
+    <!-- PLATFORM IMPACT -->
+    <div class="c" style="margin-bottom:16px;">
+        <div class="c-head">
+            <h3>Platform Impact · Last 30 Days</h3>
+            <span class="c-subhead">What this system is doing, measured</span>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line-2);">
+            <div style="padding: 4px 22px 16px;">
+                <div class="mrow"><span class="mrow-l">Agent queries served (MCP)</span><span class="mrow-v">78,412<span class="up">+156%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Natural-language briefs</span><span class="mrow-v">12,890<span class="up">+68%</span></span></div>
+                <div class="mrow"><span class="mrow-l">AI summaries generated</span><span class="mrow-v">48,920<span class="up">+42%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Demand-gap alerts to providers</span><span class="mrow-v">1,840<span class="up">new</span></span></div>
             </div>
-            <div class="comp">
-                <div class="comp-col">
-                    <div class="comp-h">
-                        <div class="av">ST</div>
-                        <div><div class="comp-name">SilverThread</div><div class="comp-sub">Recommended</div></div>
-                    </div>
-                    <div class="hbar"><span class="hbar-l">Quality</span><div class="hbar-t"><div class="hbar-f coral" style="width:92%"></div></div><span class="hbar-v">4.8</span></div>
-                    <div class="hbar"><span class="hbar-l">Timeliness</span><div class="hbar-t"><div class="hbar-f coral" style="width:78%"></div></div><span class="hbar-v">4.1</span></div>
-                    <div class="hbar"><span class="hbar-l">Cost Value</span><div class="hbar-t"><div class="hbar-f coral" style="width:85%"></div></div><span class="hbar-v">4.4</span></div>
-                    <div class="hbar"><span class="hbar-l">Communication</span><div class="hbar-t"><div class="hbar-f coral" style="width:94%"></div></div><span class="hbar-v">4.9</span></div>
-                </div>
-                <div class="comp-col">
-                    <div class="comp-h">
-                        <div class="av" style="background:var(--g4)">NX</div>
-                        <div><div class="comp-name">NexaBuild</div><div class="comp-sub">Alternative</div></div>
-                    </div>
-                    <div class="hbar"><span class="hbar-l">Quality</span><div class="hbar-t"><div class="hbar-f navy" style="width:86%"></div></div><span class="hbar-v">4.5</span></div>
-                    <div class="hbar"><span class="hbar-l">Timeliness</span><div class="hbar-t"><div class="hbar-f navy" style="width:90%"></div></div><span class="hbar-v">4.7</span></div>
-                    <div class="hbar"><span class="hbar-l">Cost Value</span><div class="hbar-t"><div class="hbar-f navy" style="width:72%"></div></div><span class="hbar-v">3.8</span></div>
-                    <div class="hbar"><span class="hbar-l">Communication</span><div class="hbar-t"><div class="hbar-f navy" style="width:82%"></div></div><span class="hbar-v">4.3</span></div>
-                </div>
+            <div style="padding: 4px 22px 16px; border-left: 1px solid var(--line-2);">
+                <div class="mrow"><span class="mrow-l">Fraudulent reviews blocked</span><span class="mrow-v">312<span class="up">+24%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Avg. time to shortlist</span><span class="mrow-v">4.2 min<span class="dn">–68%</span></span></div>
+                <div class="mrow"><span class="mrow-l">High-intent leads routed</span><span class="mrow-v">2,830<span class="up">+41%</span></span></div>
+                <div class="mrow"><span class="mrow-l">Clutch+ lead conversion</span><span class="mrow-v">14.3%<span class="up">+5.2pp</span></span></div>
             </div>
         </div>
+    </div>
 
-        <div class="c">
-            <div class="c-head">
-                <h3>Platform Impact</h3>
-                <span style="font-size:11px;color:var(--g4)">Last 30 days</span>
+
+    <!-- CLOSING FRAMING -->
+    <div class="close">
+        <h2>Not four features. <em>One AI ecosystem</em>, with Clutch's data at the center.</h2>
+        <p class="big">The better Clutch structures and analyzes its review data, the more powerful it becomes — for human buyers on the site today, and for every AI agent researching vendors tomorrow.</p>
+        <div class="close-grid">
+            <div class="close-pillar">
+                <h4>First-Mover Advantage</h4>
+                <p><b>No other B2B marketplace has this infrastructure yet.</b> Clutch ships the agent data layer first, becomes the default citation.</p>
             </div>
-            <div class="c-body">
-                <div class="mrow"><span class="mrow-l">Reviews flagged</span><span class="mrow-v">1,247 <span class="up">+18%</span></span></div>
-                <div class="mrow"><span class="mrow-l">Fraudulent reviews removed</span><span class="mrow-v">312 <span class="up">+24%</span></span></div>
-                <div class="mrow"><span class="mrow-l">AI summaries generated</span><span class="mrow-v">48,920 <span class="up">+156%</span></span></div>
-                <div class="mrow"><span class="mrow-l">Avg. time to shortlist</span><span class="mrow-v">4.2 min <span class="dn">-68%</span></span></div>
-                <div class="mrow"><span class="mrow-l">High-intent leads routed</span><span class="mrow-v">2,830 <span class="up">+41%</span></span></div>
-                <div class="mrow"><span class="mrow-l">Clutch+ lead conversion</span><span class="mrow-v">14.3% <span class="up">+5.2pp</span></span></div>
+            <div class="close-pillar">
+                <h4>New Distribution Channel</h4>
+                <p><b>Reach expands beyond website visitors</b> to every AI assistant in the world. Same unit economics, new surface area.</p>
+            </div>
+            <div class="close-pillar">
+                <h4>Long-Term Moat</h4>
+                <p><b>2M+ verified reviews + structured intelligence.</b> The data compounds. Agents cite Clutch because nothing else is as trusted.</p>
             </div>
         </div>
     </div>
@@ -558,22 +836,74 @@
 </div>
 
 <footer>
-    <p><strong>Clutch Review Intelligence</strong><br>Product concept prepared for the AI Product Manager role. Demonstrates AI fluency, product thinking, and alignment with Clutch's mission to bring transparency to B2B buying decisions.</p>
+    <p><strong>Clutch AI Data Layer · Interactive Prototype</strong><br>Product concept prepared for the AI Product Manager role. Demonstrates AI fluency, systems product thinking, and alignment with Clutch's mission to bring transparency to B2B buying decisions — now with AI agents in the mix.</p>
 </footer>
 
-<script>
-const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.querySelectorAll('.bar-f, .hbar-f').forEach(b => {
-            const w = b.style.width;
-            b.style.width = '0%';
-            requestAnimationFrame(() => requestAnimationFrame(() => b.style.width = w));
-        });
-        io.unobserve(e.target);
-    });
-}, { threshold: 0.15 });
-document.querySelectorAll('.c').forEach(c => io.observe(c));
-</script>
+<!-- HOW IT WORKS BUTTON -->
+<button class="tour-btn" id="tourStart">
+    <span class="tour-btn-pulse"></span>
+    <span>How It Works</span>
+</button>
+
+<!-- TOUR OVERLAY -->
+<div class="tour-overlay" id="tourOverlay">
+    <div class="tour-spotlight" id="tourSpot"></div>
+    <div class="tour-tooltip" id="tourTip">
+        <button class="tour-btn-exit" id="tourExit" title="Close walkthrough">×</button>
+        <div class="tour-eyebrow">
+            <span class="tour-eyebrow-tag">Product Walkthrough</span>
+            <span class="tour-step-num" id="tourStepNum">1 of 10</span>
+        </div>
+        <div class="tour-title" id="tourTitle"></div>
+        <div class="tour-desc" id="tourDesc"></div>
+        <div class="tour-why" id="tourWhy"></div>
+        <div class="tour-try" id="tourTry"></div>
+        <div class="tour-controls">
+            <button class="tour-btn-back" id="tourBack">← Back</button>
+            <div class="tour-progress"><div class="tour-progress-f" id="tourProgress"></div></div>
+            <button class="tour-btn-next" id="tourNext">Next →</button>
+        </div>
+        <button class="tour-btn-restart" id="tourRestart">↻ Restart from beginning</button>
+    </div>
+</div>
+
+<!-- FLOATING AGENT PILL -->
+<button class="float-pill" id="floatPill">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8h6.1l-4.9 3.6 1.9 5.8-4.9-3.6-4.9 3.6 1.9-5.8-4.9-3.6h6.1z"/></svg>
+    I need a recommendation…
+</button>
+
+<!-- CHAT OVERLAY -->
+<div class="chat-overlay" id="chatOverlay">
+    <div class="chat-window">
+        <div class="chat-header">
+            <div class="chat-header-l">
+                <div class="chat-av">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8h6.1l-4.9 3.6 1.9 5.8-4.9-3.6-4.9 3.6 1.9-5.8-4.9-3.6h6.1z"/></svg>
+                </div>
+                <div>
+                    <div class="chat-name">Clutch Concierge</div>
+                    <div class="chat-sub"><span class="dot"></span>AI agent · live</div>
+                </div>
+            </div>
+            <button class="chat-close" id="chatClose">×</button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer">
+            <div class="chat-input-wrap">
+                <input type="text" placeholder="Ask a follow-up…">
+                <button class="chat-send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+            <div class="chat-restart" id="chatRestart">↻ Replay demo conversation</div>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="app.js"></script>
 </body>
 </html>
