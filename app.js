@@ -564,7 +564,7 @@ const tourSteps = [
         title: "Clutch's AI Data Layer — Two Audiences, One System",
         audience: "Both audiences",
         audienceCls: "both",
-        desc: "Clutch has 2M+ verified reviews. <b>Two types of buyer need that data:</b><br>① Buyers who <em>visit clutch.co</em> (today's audience)<br>② Buyers who <em>start their research inside an AI agent</em> like Claude or ChatGPT (a phase Clutch has zero presence in today)",
+        desc: "Clutch has 2M+ verified reviews. <b>Two types of buyer need that data:</b><br>① Buyers who <em>visit clutch.co</em> (today's audience)<br>② Buyers who <em>start their research inside an AI agent</em> like Claude or ChatGPT",
         why: "This isn't about pulling buyers away from clutch.co — it's about reaching buyers earlier in their research. The AI cites Clutch, links back to the profile, and often drives that buyer TO clutch.co to close the deal.",
         before: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
         delay: 700
