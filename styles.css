@@ -2001,6 +2001,7 @@ footer strong { color: var(--ink); }
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
 }
 .tour-eyebrow-tag {
     font-size: 10px;
@@ -2011,17 +2012,19 @@ footer strong { color: var(--ink); }
     background: var(--coral-dim);
     padding: 5px 10px;
     border-radius: 4px;
-}
-.tour-eyebrow-sep {
-    color: var(--line);
-    font-size: 16px;
-    line-height: 1;
+    line-height: 1.2;
 }
 .tour-step-num {
-    font-size: 13px;
+    font-size: 10px;
     font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.2px;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: var(--bg-alt);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    line-height: 1.2;
 }
 .tour-title {
     font-size: 22px;
@@ -2253,15 +2256,19 @@ footer strong { color: var(--ink); }
     border-radius: 4px;
 }
 .tour-mini-sep {
-    color: var(--line);
-    font-size: 14px;
-    line-height: 1;
+    display: none;
 }
 .tour-mini-step {
-    font-size: 13px;
+    font-size: 10px;
     font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.2px;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: var(--bg-alt);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    line-height: 1.2;
     white-space: nowrap;
 }
 .tour-mini-title {

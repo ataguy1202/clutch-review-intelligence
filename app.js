@@ -779,7 +779,7 @@ function showTourStep(i) {
     if (step.before) step.before();
 
     // Update text
-    tourStepNum.textContent = `${i + 1} of ${tourSteps.length}`;
+    tourStepNum.textContent = `Step ${i + 1} of ${tourSteps.length}`;
     tourTitle.textContent = step.title;
 
     // Audience tag (swap class each time so the color matches)
