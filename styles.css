@@ -2148,6 +2148,39 @@ footer strong { color: var(--ink); }
 /* Hide full card when minimized */
 .tour-tooltip.minimized { display: none; }
 
+/* Compact mode — smaller card showing only title + nav (no desc/why/try) */
+.tour-tooltip.compact {
+    width: 300px;
+    padding: 18px 20px;
+}
+.tour-tooltip.compact .tour-desc,
+.tour-tooltip.compact .tour-why,
+.tour-tooltip.compact .tour-try,
+.tour-tooltip.compact .tour-btn-restart {
+    display: none;
+}
+.tour-tooltip.compact .tour-header {
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+.tour-tooltip.compact .tour-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+.tour-tooltip.compact .tour-controls {
+    margin-top: 0;
+    gap: 8px;
+}
+.tour-tooltip.compact .tour-btn-back,
+.tour-tooltip.compact .tour-btn-next {
+    padding: 8px 14px;
+    font-size: 12px;
+}
+.tour-tooltip.compact #tourCompact svg {
+    transform: rotate(180deg);
+}
+
 /* Minimized pill — sibling of tooltip, shown when card is hidden */
 .tour-mini-pill {
     display: none;

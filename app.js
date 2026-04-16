@@ -835,9 +835,16 @@ function expandTour() {
     tourMiniPill.classList.remove('on');
 }
 
+function toggleCompact() {
+    tourTip.classList.toggle('compact');
+    const btn = document.getElementById('tourCompact');
+    btn.title = tourTip.classList.contains('compact') ? 'Expand to full view' : 'Shrink to compact view';
+}
+
 tourStart.addEventListener('click', openTour);
 tourExit.addEventListener('click', () => { expandTour(); closeTour(); });
 document.getElementById('tourMin').addEventListener('click', minimizeTour);
+document.getElementById('tourCompact').addEventListener('click', toggleCompact);
 document.getElementById('tourExpand').addEventListener('click', expandTour);
 document.getElementById('tourRestart').addEventListener('click', restartTour);
 tourNext.addEventListener('click', () => {
