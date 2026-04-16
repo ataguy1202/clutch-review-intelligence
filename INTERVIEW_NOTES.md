@@ -44,7 +44,7 @@ Three points:
 
 2. **Where buyers do research is shifting.** A growing share of B2B buyers ask Claude/ChatGPT "find me a HIPAA marketing agency" before they Google anything. Today, that buyer gets a random answer and Clutch has zero presence. MCP (Model Context Protocol) is the standard for AI agents to call external data — so Clutch publishes an MCP server and becomes the default source those AIs cite. No B2B marketplace has shipped MCP yet — that's the first-mover window.
 
-3. **Money flows three ways, all additive:** (a) agent cites Clutch → buyer clicks through to clutch.co → converts via existing lead-gen; (b) enterprise customers license Clutch's data for their own internal procurement AIs — brand-new SaaS subscription tier; (c) future: sponsored placement in AI answers.
+3. **Money flows the same way as today, just through a new channel:** agent cites Clutch → buyer clicks through to clutch.co → converts via existing lead-gen. Same fee structure, same provider-pays-for-qualified-intent model — just a new traffic source on top of Google/direct. Plus future optionality to sell sponsored placement within agent answers, like clutch.co's existing sponsored listings.
 
 ### The prototype maps to this thesis
 
@@ -55,11 +55,11 @@ Three points:
 
 ---
 
-## Part 2.5 · The three monetization paths, with concrete examples
+## Part 2.5 · The monetization, with concrete examples
 
-This is the part that most needs to be crystal clear. Memorize the examples — when an interviewer asks "wait, how does this make money?" you want to answer with a specific scenario, not abstractions.
+When an interviewer asks "wait, how does this make money?" you want to answer with a specific scenario, not abstractions. Two paths: one core, one future.
 
-### Path ① — Funnel extension (THE BIGGEST SLICE, same model as today)
+### Path ① — Funnel extension (THE CORE revenue story, same model as today)
 
 **What happens:** AI agent cites Clutch in its answer with a link back to clutch.co. Buyer clicks the link, lands on the provider profile, fills out the contact form. Provider pays Clutch for the lead — same fee, same model as today.
 
@@ -68,29 +68,7 @@ This is the part that most needs to be crystal clear. Memorize the examples — 
 
 **Why this is "extension not replacement":** that CMO was NEVER coming to clutch.co via Google — she started her research in Claude. Without MCP, she never visits. With MCP, she visits AND converts. Pure funnel expansion.
 
-### Path ② — Enterprise data licensing (BRAND-NEW SaaS tier, not per-lead)
-
-**What happens:** big companies building internal AI tools pay Clutch a subscription to embed Clutch's data inside their own systems. This is NOT per-lead — it's a recurring subscription, like Bloomberg or Gartner.
-
-**Concrete scenario:**
-> *Deloitte has 1,000 consultants who help Fortune 500 clients pick B2B vendors. They build an internal AI agent called "VendorBot" to speed up the research phase. VendorBot needs authoritative data — it can't just guess. Deloitte signs a $250K/year enterprise subscription with Clutch. VendorBot calls Clutch's MCP server via API, embedded inside Deloitte's internal tool. 1,000 consultants query it daily, no individual leads generated, but Deloitte pays Clutch $250K annually for the data access.*
-
-**Why this is brand-new:** Clutch has no equivalent today. Marketplaces monetize through leads and sponsored placement — not through selling their data. This unlocks a B2B SaaS tier on top of the marketplace. Think: the marketplace is the consumer product, this is the data product.
-
-**Who buys this:**
-- Consulting firms (Deloitte, Accenture, McKinsey)
-- Enterprise procurement teams building internal tools
-- PE/VC firms doing vendor due diligence at scale
-- Large agencies vetting subcontractors
-
-**Pricing analogs:**
-- Gartner Peer Insights enterprise: $50K–$300K/year
-- Bloomberg Terminal: $24K/seat/year
-- Crunchbase Enterprise API: $100K+/year
-
-Clutch could reasonably price in the $50K–$500K/year range depending on org size and query volume.
-
-### Path ③ — Sponsored placement in agent answers (FUTURE optionality)
+### Path ② — Sponsored placement in agent answers (FUTURE optionality)
 
 **What happens:** providers pay to appear prominently when an agent generates a list of matches. Same sponsored logic as clutch.co today, applied to agent responses.
 
@@ -190,10 +168,6 @@ That's your cue to hand it over. Silence is fine. Let them ask.
 ### "Does this cannibalize existing clutch.co revenue?"
 
 > *"No, and that's the whole point. Today, a buyer who asks ChatGPT instead of Googling never touches clutch.co — Clutch already has zero revenue from that buyer. MCP captures that buyer at the research phase and, via citations and deep links, drives them back to clutch.co for the conversion. It's strictly additive. The buyers already coming to clutch.co still come — and we make their matching experience better through the same AI."*
-
-### "Who's actually paying, and for what, in the enterprise tier?"
-
-> *"Procurement teams at mid-to-large enterprises building internal agents to manage vendor selection. They pay a per-query fee or a subscription to license Clutch's data inside those internal tools. Price it like Bloomberg terminal — yearly subscription per seat or per workspace. This is the cleanest net-new revenue line because it doesn't depend on individual lead conversions."*
 
 ### "What's the biggest risk?"
 
