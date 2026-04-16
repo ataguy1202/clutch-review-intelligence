@@ -848,6 +848,8 @@
 <!-- TOUR OVERLAY -->
 <div class="tour-overlay" id="tourOverlay">
     <div class="tour-spotlight" id="tourSpot"></div>
+
+    <!-- Full walkthrough card (fixed bottom-right) -->
     <div class="tour-tooltip" id="tourTip">
         <div class="tour-header">
             <div class="tour-eyebrow">
@@ -856,16 +858,13 @@
                 <span class="tour-step-num" id="tourStepNum">1 of 10</span>
             </div>
             <div class="tour-header-btns">
-                <button class="tour-btn-min" id="tourMin" title="Minimize">−</button>
-                <button class="tour-btn-exit" id="tourExit" title="Close walkthrough">×</button>
+                <button class="tour-btn-icon" id="tourMin" title="Minimize card">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </button>
+                <button class="tour-btn-icon" id="tourExit" title="Close walkthrough">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
             </div>
-        </div>
-        <!-- Minimized pill (shown when collapsed) -->
-        <div class="tour-mini-pill" id="tourMiniPill">
-            <span class="tour-eyebrow-tag" style="font-size:9px;">Walkthrough</span>
-            <span class="tour-mini-step" id="tourMiniStep">4 of 10</span>
-            <span class="tour-mini-title" id="tourMiniTitle"></span>
-            <button class="tour-mini-expand" id="tourExpand">+</button>
         </div>
         <div class="tour-title" id="tourTitle"></div>
         <div class="tour-desc" id="tourDesc"></div>
@@ -877,6 +876,17 @@
             <button class="tour-btn-next" id="tourNext">Next →</button>
         </div>
         <button class="tour-btn-restart" id="tourRestart">↻ Restart from beginning</button>
+    </div>
+
+    <!-- Minimized pill (OUTSIDE tooltip — sibling, not child) -->
+    <div class="tour-mini-pill" id="tourMiniPill">
+        <span class="tour-mini-tag">Walkthrough</span>
+        <span class="tour-mini-sep">·</span>
+        <span class="tour-mini-step" id="tourMiniStep"></span>
+        <span class="tour-mini-title" id="tourMiniTitle"></span>
+        <button class="tour-mini-expand" id="tourExpand" title="Expand card">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
     </div>
 </div>
 

@@ -2126,24 +2126,29 @@ footer strong { color: var(--ink); }
 .tour-btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
 .tour-header-btns {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     flex-shrink: 0;
 }
-.tour-btn-min,
-.tour-btn-exit {
+.tour-btn-icon {
     color: var(--muted);
-    font-size: 20px;
-    width: 32px; height: 32px;
+    width: 30px; height: 30px;
     border-radius: 50%;
-    transition: all .15s;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all .15s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
-.tour-btn-min:hover,
-.tour-btn-exit:hover { background: var(--bg-alt); color: var(--ink); }
+.tour-btn-icon:hover { background: var(--bg-alt); color: var(--ink); }
+.tour-btn-icon svg { display: block; }
 
-/* Minimized pill — small bar that replaces the full card */
+/* Hide full card when minimized */
+.tour-tooltip.minimized { display: none; }
+
+/* Minimized pill — sibling of tooltip, shown when card is hidden */
 .tour-mini-pill {
     display: none;
     position: fixed;
@@ -2152,47 +2157,62 @@ footer strong { color: var(--ink); }
     z-index: 182;
     background: white;
     border-radius: 40px;
-    padding: 10px 14px 10px 16px;
+    padding: 8px 8px 8px 18px;
     box-shadow: 0 12px 40px rgba(0,0,0,0.3);
     pointer-events: auto;
     align-items: center;
     gap: 10px;
+    max-width: calc(100vw - 56px);
     animation: tourSlideIn 0.25s ease;
 }
 .tour-mini-pill.on { display: inline-flex; }
+.tour-mini-tag {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: var(--coral);
+    text-transform: uppercase;
+    background: var(--coral-dim);
+    padding: 4px 9px;
+    border-radius: 4px;
+}
+.tour-mini-sep {
+    color: var(--line);
+    font-size: 14px;
+    line-height: 1;
+}
 .tour-mini-step {
     font-size: 13px;
     font-weight: 800;
     color: var(--ink);
+    letter-spacing: -0.2px;
+    white-space: nowrap;
 }
 .tour-mini-title {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     font-weight: 500;
-    max-width: 180px;
+    max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .tour-mini-expand {
-    width: 28px; height: 28px;
+    width: 34px; height: 34px;
     border-radius: 50%;
     background: var(--coral);
     color: white;
-    font-size: 18px;
-    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background .15s;
     flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 .tour-mini-expand:hover { background: var(--coral-hover); }
-
-/* Hide full card when minimized */
-.tour-tooltip.minimized {
-    display: none;
-}
+.tour-mini-expand svg { display: block; }
 
 .tour-btn-restart {
     display: block;
