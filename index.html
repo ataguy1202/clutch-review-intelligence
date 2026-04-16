@@ -409,57 +409,13 @@
 
 
     <!-- ================================================
-         STEP 2 · INTELLIGENT BUYER MATCHING
-         (anchor section — pointing back to hero demo)
-         ================================================ -->
-    <div class="step" id="matching">
-        <div class="step-top">
-            <div class="step-num">2</div>
-            <div>
-                <div class="step-label">Step 02 · On-Platform Matching</div>
-                <div class="step-title">Intelligent Buyer Matching — the same engine, for human buyers on clutch.co</div>
-            </div>
-        </div>
-        <div class="step-value">
-            <b>Why it matters:</b> the MCP layer serves external agents. This is the human-facing equivalent — buyers describe their project in plain English instead of clicking filters, and the same AI that serves Claude and ChatGPT returns ranked providers with clear reasoning. <em>It gets smarter over time by tracking which matches lead to closed projects.</em> <b>Scroll up to the hero</b> or click the floating "I need a recommendation…" pill to try it live.
-        </div>
-    </div>
-
-    <div class="c" style="margin-bottom:16px;">
-        <div class="c-head">
-            <h3>Natural Language Matching · Interactive Demo</h3>
-            <span class="pill live"><span class="dot"></span>Live</span>
-        </div>
-        <div class="c-body" style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
-            <div style="flex:1; min-width: 260px;">
-                <div class="brief-label">Try it now — 2 ways</div>
-                <div style="font-size: 13px; color: var(--body); line-height: 1.7; margin-bottom: 14px;">
-                    <b style="color:var(--ink)">①</b> Click a <b>popular search chip</b> at the top of the page → hit <b>Get Matched</b>.<br>
-                    <b style="color:var(--ink)">②</b> Click the <b style="color:var(--coral)">"I need a recommendation…"</b> pill in the bottom-right → talk to the agent.
-                </div>
-                <div style="display:flex; gap:10px;">
-                    <button class="btn p" onclick="document.getElementById('matchInput').focus(); window.scrollTo({top:0, behavior:'smooth'})">↑ Try matching</button>
-                    <button class="btn s" onclick="document.getElementById('floatPill').click()">💬 Open agent chat</button>
-                </div>
-            </div>
-            <div style="flex:1; min-width: 260px; background: var(--bg-alt); padding:18px; border-radius: 10px;">
-                <div class="brief-label">What makes this different from filters</div>
-                <div style="font-size:12.5px; color: var(--body); line-height: 1.7;">
-                    Instead of clicking 8 dropdowns, buyers describe what they need. The model reasons across <b style="color:var(--ink)">provider profiles, reviews, past projects, pricing, and outcomes</b> — and returns matches with <em>plain-english reasoning for each pick</em>. That's the same output the MCP layer gives to AI agents.
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ================================================
-         STEP 3 · REVIEW INTELLIGENCE
+         STEP 2 · REVIEW INTELLIGENCE
          ================================================ -->
     <div class="step" id="reviews">
         <div class="step-top">
-            <div class="step-num">3</div>
+            <div class="step-num">2</div>
             <div>
-                <div class="step-label">Step 03 · The Foundation</div>
+                <div class="step-label">Step 02 · The Foundation</div>
                 <div class="step-title">Review Intelligence — structured data that makes everything above possible</div>
             </div>
         </div>
@@ -622,13 +578,13 @@
 
 
     <!-- ================================================
-         STEP 4 · PROVIDER DEMAND INTELLIGENCE
+         STEP 3 · PROVIDER DEMAND INTELLIGENCE
          ================================================ -->
     <div class="step" id="demand">
         <div class="step-top">
-            <div class="step-num">4</div>
+            <div class="step-num">3</div>
             <div>
-                <div class="step-label">Step 04 · Closing the Loop</div>
+                <div class="step-label">Step 03 · Closing the Loop</div>
                 <div class="step-title">Provider Demand Intelligence — show providers what buyers and agents are searching for</div>
             </div>
         </div>
@@ -743,52 +699,6 @@
             </div>
         </div>
     </div>
-
-    <!-- BUYER INTENT -->
-    <div class="c" style="margin-bottom:16px;">
-        <div class="c-head">
-            <h3>Buyer Intent Signals · Routed to Providers</h3>
-            <span class="pill live"><span class="dot"></span>Real-time</span>
-        </div>
-        <div style="padding:16px 20px 20px; overflow-x:auto;">
-            <table class="it">
-                <thead><tr>
-                    <th>Buyer</th><th>Intent</th><th>Signals</th><th>Budget</th><th></th>
-                </tr></thead>
-                <tbody>
-                    <tr>
-                        <td><div class="buyer"><div class="av a">JR</div><div><div class="buyer-n">Jordan Rivera</div><div class="buyer-c">Meridian Health Systems</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" data-w="92%" style="width:92%"></div></div><span class="sc hi">92</span></div></td>
-                        <td><div class="sigs"><span class="sig">Compared 5 providers</span><span class="sig">Read 12 reviews</span><span class="sig">Repeat visitor</span></div></td>
-                        <td style="font-weight:700;color:var(--ink)">$150K+</td>
-                        <td><button class="btn p" data-action="route" data-name="SilverThread">Route Lead</button></td>
-                    </tr>
-                    <tr>
-                        <td><div class="buyer"><div class="av b">SK</div><div><div class="buyer-n">Sarah Kim</div><div class="buyer-c">Vertex Financial Group</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f hi" data-w="85%" style="width:85%"></div></div><span class="sc hi">85</span></div></td>
-                        <td><div class="sigs"><span class="sig">Downloaded shortlist</span><span class="sig">Filtered by budget</span><span class="sig">3 sessions</span></div></td>
-                        <td style="font-weight:700;color:var(--ink)">$75K–100K</td>
-                        <td><button class="btn p" data-action="route" data-name="NexaBuild">Route Lead</button></td>
-                    </tr>
-                    <tr>
-                        <td><div class="buyer"><div class="av d">AG</div><div><div class="buyer-n">Agent · Claude <span class="buyer-tag">MCP</span></div><div class="buyer-c">on behalf of Cascade Retail Co.</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f coral" data-w="78%" style="width:78%"></div></div><span class="sc coral">78</span></div></td>
-                        <td><div class="sigs"><span class="sig mcp">compare_providers</span><span class="sig mcp">get_reviews</span><span class="sig">Enterprise workspace</span></div></td>
-                        <td style="font-weight:700;color:var(--ink)">$50K–75K</td>
-                        <td><button class="btn p" data-action="route" data-name="Apex Digital">Route Lead</button></td>
-                    </tr>
-                    <tr>
-                        <td><div class="buyer"><div class="av c">ML</div><div><div class="buyer-n">Marcus Thompson</div><div class="buyer-c">Cascade Retail Co.</div></div></div></td>
-                        <td><div class="bar-wrap"><div class="bar"><div class="bar-f md" data-w="58%" style="width:58%"></div></div><span class="sc md">58</span></div></td>
-                        <td><div class="sigs"><span class="sig">Browsed 2 categories</span><span class="sig">Early research</span></div></td>
-                        <td style="font-weight:700;color:var(--ink)">$50K–75K</td>
-                        <td><button class="btn s">Nurture</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
 
     <!-- PLATFORM IMPACT -->
     <div class="c" style="margin-bottom:16px;">
