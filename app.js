@@ -572,20 +572,25 @@ const tourSteps = [
         title: "Natural-Language Matching",
         desc: "Buyers describe what they need in plain English. The AI reasons across profiles, reviews, projects, and pricing to surface the right matches — no filter clicking.",
         why: "Replaces a multi-step funnel with a one-line brief. The model gets smarter as it learns which matches actually close.",
-        try: "We'll auto-fill a HIPAA marketing brief, then run the match next.",
+        try: "The walkthrough will auto-fill a HIPAA brief and run the match for you.",
         before: () => {
-            const chip = document.querySelector('.chip-search[data-preset=\"hipaa\"]') || document.querySelector('.chip-search');
-            if (chip) chip.click();
-        }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Auto-click chip with a slight delay so the user sees it fill in
+            setTimeout(() => {
+                const chip = document.querySelector('.chip-search[data-preset="hipaa"]') || document.querySelector('.chip-search');
+                if (chip) chip.click();
+            }, 600);
+        },
+        delay: 900
     },
     {
         target: '.match-card.top',
         title: "Ranked Providers, with Reasoning",
         desc: "Each match shows a score, verified-review count, and a plain-english <b>why</b> — extracted from the actual review content, not keyword overlap.",
         why: "The same reasoning is what an external AI agent receives through the MCP layer. The on-platform experience and the agent experience share one engine.",
-        try: "We'll trigger the match. Watch the cards reveal, then scan the top card's coral <b>Why</b> callout.",
+        try: "The walkthrough will click <b>Get Matched</b> and scroll to the top result.",
         before: () => {
-            // Idempotent: ensure a brief is in the input, then run match if results aren't already shown
+            // Ensure input has content
             const input = document.getElementById('matchInput');
             if (input && !input.value) {
                 const chip = document.querySelector('.chip-search[data-preset="hipaa"]') || document.querySelector('.chip-search');
@@ -593,17 +598,19 @@ const tourSteps = [
             }
             const resultsShown = document.getElementById('results').classList.contains('on');
             if (!resultsShown) {
+                // Scroll up so they see the match button, then click it
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 setTimeout(() => {
                     const btn = document.getElementById('matchBtn');
                     if (btn && !btn.classList.contains('loading')) btn.click();
-                }, 400);
+                }, 600);
             }
             setTimeout(() => {
                 const el = document.querySelector('.match-card.top');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, resultsShown ? 200 : 1500);
+            }, resultsShown ? 300 : 1800);
         },
-        delay: 2200
+        delay: 2400
     },
     {
         target: '.eco',

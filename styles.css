@@ -1967,9 +1967,9 @@ footer strong { color: var(--ink); }
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    border-radius: 14px;
-    padding: 24px;
-    width: 440px;
+    border-radius: 16px;
+    padding: 28px;
+    width: 460px;
     max-width: calc(100vw - 48px);
     box-shadow: 0 24px 60px rgba(0,0,0,0.4);
     pointer-events: auto;
@@ -1978,87 +1978,98 @@ footer strong { color: var(--ink); }
                 left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.tour-eyebrow {
+.tour-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
-    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-2);
+    gap: 16px;
+}
+.tour-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .tour-eyebrow-tag {
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.4px;
     color: var(--coral);
     text-transform: uppercase;
     background: var(--coral-dim);
-    padding: 4px 9px;
+    padding: 5px 10px;
     border-radius: 4px;
 }
-.tour-step-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--muted);
-    letter-spacing: 0.4px;
+.tour-eyebrow-sep {
+    color: var(--line);
+    font-size: 16px;
+    line-height: 1;
 }
-.tour-title {
-    font-size: 20px;
+.tour-step-num {
+    font-size: 13px;
     font-weight: 800;
     color: var(--ink);
-    margin-bottom: 12px;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
+}
+.tour-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: -0.4px;
     line-height: 1.25;
 }
 .tour-desc {
-    font-size: 13.5px;
-    line-height: 1.65;
+    font-size: 14px;
+    line-height: 1.7;
     color: var(--body);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 .tour-desc b { color: var(--ink); font-weight: 700; }
 .tour-why {
-    font-size: 12.5px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.65;
     color: var(--ink);
     background: var(--bg-alt);
     border-left: 3px solid var(--coral);
-    padding: 10px 12px;
-    border-radius: 0 6px 6px 0;
-    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 14px;
 }
 .tour-why b { color: var(--coral); font-weight: 700; }
 .tour-why::before {
     content: 'Why it matters';
     display: block;
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.2px;
     color: var(--coral);
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 .tour-try {
     display: none;
-    font-size: 12.5px;
-    line-height: 1.55;
-    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.6;
     background: var(--coral);
     color: white;
-    padding: 10px 12px;
-    border-radius: 6px;
-    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 14px;
 }
 .tour-try.on { display: block; }
 .tour-try b { color: white; font-weight: 700; }
 .tour-try::before {
     content: '▸ Watch this';
     display: block;
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.2px;
     color: rgba(255,255,255,0.85);
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .tour-controls {
@@ -2104,13 +2115,15 @@ footer strong { color: var(--ink); }
 .tour-btn-back:hover { color: var(--ink); background: var(--bg-alt); }
 .tour-btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
 .tour-btn-exit {
-    position: absolute;
-    top: 14px; right: 14px;
     color: var(--muted);
-    font-size: 20px;
-    width: 28px; height: 28px;
+    font-size: 22px;
+    width: 32px; height: 32px;
     border-radius: 50%;
     transition: all .15s;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .tour-btn-exit:hover { background: var(--bg-alt); color: var(--ink); }
 
