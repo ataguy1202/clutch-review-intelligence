@@ -1963,20 +1963,30 @@ footer strong { color: var(--ink); }
 }
 
 .tour-tooltip {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    top: auto;
+    left: auto;
+    transform: none;
     background: white;
     border-radius: 16px;
     padding: 28px;
-    width: 460px;
+    width: 400px;
     max-width: calc(100vw - 48px);
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
     box-shadow: 0 24px 60px rgba(0,0,0,0.4);
     pointer-events: auto;
     z-index: 182;
-    transition: top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: tourSlideIn 0.35s ease;
 }
+@keyframes tourSlideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+/* Hide the floating pill when tour is active */
+.tour-overlay.on ~ .float-pill { display: none; }
 
 .tour-header {
     display: flex;

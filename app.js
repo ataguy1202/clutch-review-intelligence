@@ -782,15 +782,12 @@ function showTourStep(i) {
 
 function positionTour(targetSelector) {
     if (!targetSelector) {
-        // Center everything, hide spotlight
+        // No target — just show dim, hide spotlight
         tourSpot.classList.add('center');
         tourSpot.style.top = '50%';
         tourSpot.style.left = '50%';
         tourSpot.style.width = '0';
         tourSpot.style.height = '0';
-        tourTip.style.top = '50%';
-        tourTip.style.left = '50%';
-        tourTip.style.transform = 'translate(-50%, -50%)';
         return;
     }
 
@@ -798,73 +795,26 @@ function positionTour(targetSelector) {
     if (!target) return;
 
     const raw = target.getBoundingClientRect();
-    const pad = 12;
+    const pad = 14;
     const vh = window.innerHeight;
     const vw = window.innerWidth;
 
-    // Cap spotlight to viewport so big sections (.mcp-wrap, .close) still get visible dim
-    const maxSpotH = Math.min(vh * 0.7, 520);
-    const rectTop = Math.max(raw.top - pad, 16);
-    const rectBottom = Math.min(raw.bottom + pad, vh - 16);
-    const spotH = Math.min(rectBottom - rectTop, maxSpotH);
-    const rectLeft = Math.max(raw.left - pad, 16);
-    const rectRight = Math.min(raw.right + pad, vw - 16);
-    const spotW = rectRight - rectLeft;
+    // Cap spotlight height so big sections still show the dim around them
+    const maxSpotH = Math.min(vh * 0.65, 480);
+    const spotTop = Math.max(raw.top - pad, 8);
+    const spotBottom = Math.min(raw.bottom + pad, vh - 8);
+    const spotH = Math.min(spotBottom - spotTop, maxSpotH);
+    const spotLeft = Math.max(raw.left - pad, 8);
+    const spotRight = Math.min(raw.right + pad, vw - 8);
+    const spotW = spotRight - spotLeft;
 
     tourSpot.classList.remove('center');
-    tourSpot.style.top = rectTop + 'px';
-    tourSpot.style.left = rectLeft + 'px';
+    tourSpot.style.top = spotTop + 'px';
+    tourSpot.style.left = spotLeft + 'px';
     tourSpot.style.width = spotW + 'px';
     tourSpot.style.height = spotH + 'px';
 
-    // Use the capped rect for tooltip positioning
-    const rect = { top: rectTop, bottom: rectTop + spotH, height: spotH, left: rectLeft, right: rectLeft + spotW, width: spotW };
-
-    // Position tooltip — prefer below, fallback to above, fallback to side
-    const ttW = 440;
-    const ttH = tourTip.offsetHeight || 340;
-    const gap = 24;
-
-    let top, left;
-    const spaceBelow = vh - rect.bottom;
-    const spaceAbove = rect.top;
-
-    if (spaceBelow >= ttH + gap + 20) {
-        top = rect.bottom + gap;
-    } else if (spaceAbove >= ttH + gap + 20) {
-        top = rect.top - ttH - gap;
-    } else {
-        // Not enough above or below — put it to the side (right if there's room, else left)
-        const spaceRight = vw - rect.right;
-        const spaceLeft = rect.left;
-        if (spaceRight >= ttW + gap) {
-            left = rect.right + gap;
-            top = Math.max(24, rect.top + rect.height / 2 - ttH / 2);
-            top = Math.min(top, vh - ttH - 24);
-            tourTip.style.top = top + 'px';
-            tourTip.style.left = left + 'px';
-            tourTip.style.transform = 'none';
-            return;
-        } else if (spaceLeft >= ttW + gap) {
-            left = rect.left - ttW - gap;
-            top = Math.max(24, rect.top + rect.height / 2 - ttH / 2);
-            top = Math.min(top, vh - ttH - 24);
-            tourTip.style.top = top + 'px';
-            tourTip.style.left = left + 'px';
-            tourTip.style.transform = 'none';
-            return;
-        } else {
-            top = Math.max(24, (vh - ttH) / 2);
-        }
-    }
-
-    left = rect.left + rect.width / 2 - ttW / 2;
-    left = Math.max(24, Math.min(left, vw - ttW - 24));
-    top = Math.max(24, Math.min(top, vh - ttH - 24));
-
-    tourTip.style.top = top + 'px';
-    tourTip.style.left = left + 'px';
-    tourTip.style.transform = 'none';
+    // Tooltip is fixed to bottom-right via CSS — no JS positioning needed
 }
 
 tourStart.addEventListener('click', openTour);
@@ -893,7 +843,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeTour();
 });
 
-// Reposition on scroll / resize (debounced)
+// Reposition spotlight on scroll / resize (debounced)
 let repositionTimeout;
 function reposition() {
     clearTimeout(repositionTimeout);
@@ -902,7 +852,6 @@ function reposition() {
             const step = tourSteps[tourIdx];
             if (step && step.target) positionTour(step.target);
         }
-    }, 50);
+    }, 100);
 }
-window.addEventListener('resize', reposition);
 window.addEventListener('scroll', reposition, { passive: true });
