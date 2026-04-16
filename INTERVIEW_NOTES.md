@@ -59,14 +59,16 @@ Three points:
 
 When an interviewer asks "wait, how does this make money?" you want to answer with a specific scenario, not abstractions. Two paths: one core, one future.
 
-### Path ① — Funnel extension (THE CORE revenue story, same model as today)
+### Path ① — Funnel extension (THE CORE revenue story, same mechanisms as today)
 
-**What happens:** AI agent cites Clutch in its answer with a link back to clutch.co. Buyer clicks the link, lands on the provider profile, fills out the contact form. Provider pays Clutch for the lead — same fee, same model as today.
+**What happens:** AI agent cites Clutch in its answer with a link back to clutch.co. Buyer clicks the link, lands on the provider profile, fills the contact form. That qualified intent converts through Clutch's existing monetization — whether that's Clutch+ subscriptions, lead-routing fees, or sponsored placement. The point isn't the specific fee mechanic — it's that the same revenue infrastructure captures this buyer.
 
 **Concrete scenario:**
-> *A CMO at Meridian Hospital asks Claude for a HIPAA-compliant marketing agency. Claude answers: "Based on Clutch's verified reviews, SilverThread is your best fit — 12 verified healthcare projects, 4.8★ across 47 reviews (clutch.co/profile/silverthread)." She clicks the link, lands on clutch.co, reads three reviews, hits Contact. That's exactly what would happen today if she'd come from a Google search — same contact form, same lead, same fee to Clutch. The only difference: the traffic source is now Claude.*
+> *A CMO at Meridian Hospital asks Claude for a HIPAA-compliant marketing agency. Claude answers: "Based on Clutch's verified reviews, SilverThread is your best fit — 12 verified healthcare projects, 4.8★ across 47 reviews (clutch.co/profile/silverthread)." She clicks the link, lands on clutch.co, reads three reviews, hits Contact. That's exactly what would happen today if she'd come from a Google search — same contact form, same provider payout through whatever Clutch's existing monetization mechanism is. Only difference: traffic source is Claude, not Google.*
 
 **Why this is "extension not replacement":** that CMO was NEVER coming to clutch.co via Google — she started her research in Claude. Without MCP, she never visits. With MCP, she visits AND converts. Pure funnel expansion.
+
+**Honest caveat:** Clutch doesn't publicly publish detailed pricing mechanics. If asked "how exactly do providers pay — per-lead, subscription, sponsored placement?" the right answer is: *"Some mix — Clutch+ subscriptions, lead-routing fees, sponsored placement. MCP-sourced buyers convert through the same mechanisms. I'd want to validate the exact fee structure with the team, but strategically the insight holds: new traffic source, existing monetization rails."* Don't claim a specific fee model you can't back up.
 
 ### Path ② — Sponsored placement in agent answers (FUTURE optionality)
 
@@ -164,6 +166,12 @@ That's your cue to hand it over. Silence is fine. Let them ask.
 ### "What's the MVP? Where would you start?"
 
 > *"Two tools: clutch.search_providers and clutch.get_reviews. Closed beta via Claude's tool directory and a handful of hand-picked enterprise pilots. Measure three things in the first 90 days: agent query volume, query-to-citation rate (does the agent cite Clutch in its answer), and click-through from citations to clutch.co. The last one is the number that proves the funnel extension hypothesis."*
+
+### "Do providers actually pay Clutch per-lead? How does the fee work?"
+
+> *"Honest answer — I don't know the exact pricing mix Clutch runs today and I don't want to pretend I do. What I'm confident about: providers pay Clutch for access to qualified buyer intent, through some combination of Clutch+ subscriptions, lead-routing fees, and sponsored placement. The strategic point I'm making with MCP isn't 'per-lead vs subscription' — it's that AI-sourced buyers who click through to clutch.co convert through whatever existing monetization mechanism is already in place. New traffic source, existing revenue rails. I'd want to validate the specific fee structure with you."*
+
+This is a great answer because it (a) acknowledges the limit of your knowledge, (b) still makes the strategic point, and (c) invites them to fill in the specifics — which shows curiosity and humility, not uncertainty.
 
 ### "Does this cannibalize existing clutch.co revenue?"
 
