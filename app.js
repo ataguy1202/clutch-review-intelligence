@@ -561,21 +561,24 @@ setInterval(() => {
 const tourSteps = [
     {
         target: '.hero h1',
-        title: "The AI Data Layer for B2B Buying",
-        desc: "Clutch's 2M+ verified reviews become the data behind every B2B vendor search — whether a person browses or an AI agent researches on their behalf.",
-        why: "Buying behavior is shifting from humans browsing to agents researching. Clutch's verified-review moat becomes more valuable, not less.",
+        title: "Clutch's AI Data Layer — Two Audiences, One System",
+        audience: "Both audiences",
+        audienceCls: "both",
+        desc: "Clutch has 2M+ verified reviews. <b>Two totally different buyers need that data:</b><br>① Buyers who <em>visit clutch.co</em> (today's audience)<br>② Buyers who <em>ask AI agents instead</em> of going to websites (tomorrow's — and currently invisible to Clutch)",
+        why: "Today, a buyer who asks ChatGPT for an agency gets a random answer. Clutch makes $0 on them. This prototype shows one data layer that captures <b>both</b> audiences, plus a provider-side loop to close demand gaps.",
         before: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
         delay: 700
     },
     {
         target: '.popular',
-        title: "Natural-Language Matching",
-        desc: "Buyers describe what they need in plain English. The AI reasons across profiles, reviews, projects, and pricing to surface the right matches — no filter clicking.",
-        why: "Replaces a multi-step funnel with a one-line brief. The model gets smarter as it learns which matches actually close.",
+        title: "Natural-Language Matching (on Clutch.co)",
+        audience: "For buyers who visit clutch.co",
+        audienceCls: "on-clutch",
+        desc: "For Audience ①: buyers who already come to clutch.co. Instead of clicking through eight filter dropdowns, they describe their project in plain English. The AI reads the brief and ranks the best-fit providers.",
+        why: "Keeps existing Clutch traffic converting better. Same buyers, less friction, higher-quality matches — and the engine learns from which matches actually close.",
         try: "The walkthrough will auto-fill a HIPAA brief and run the match for you.",
         before: () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            // Auto-click chip with a slight delay so the user sees it fill in
             setTimeout(() => {
                 const chip = document.querySelector('.chip-search[data-preset="hipaa"]') || document.querySelector('.chip-search');
                 if (chip) chip.click();
@@ -586,8 +589,10 @@ const tourSteps = [
     {
         target: '.match-card.top',
         title: "Ranked Providers, with Reasoning",
-        desc: "Each match shows a score, verified-review count, and a plain-english <b>why</b> — extracted from the actual review content, not keyword overlap.",
-        why: "The same reasoning is what an external AI agent receives through the MCP layer. The on-platform experience and the agent experience share one engine.",
+        audience: "For buyers who visit clutch.co",
+        audienceCls: "on-clutch",
+        desc: "Each match shows a score, verified-review count, and a plain-english <b>why</b> — extracted from actual review content, not keyword overlap.",
+        why: "Key point: the <b>same reasoning</b> is what an external AI agent receives in step 6. One engine, two audiences.",
         try: "The walkthrough will click <b>Get Matched</b> and scroll to the top result.",
         before: () => {
             // Ensure input has content
@@ -614,9 +619,11 @@ const tourSteps = [
     },
     {
         target: '.eco',
-        title: "One Ecosystem, Four Capabilities",
-        desc: "Review Intelligence structures the data. Intelligent Matching uses it to recommend providers. The MCP Agent Layer makes it queryable by any AI assistant. Provider Demand closes the loop with supply-side signals.",
-        why: "Each capability is more valuable because the others exist. Together they form a defensible AI data layer — not a feature list.",
+        title: "One System, Two Audiences + Supply Loop",
+        audience: "How it fits together",
+        audienceCls: "both",
+        desc: "Review Intelligence structures every review into signal. That signal powers both the on-site matching (Audience ①) and the MCP Agent Layer (Audience ②). Provider Demand closes the loop on the supply side.",
+        why: "Each piece is more valuable because the others exist. <b>One data investment, two revenue channels</b> — the website and the agent layer — plus provider-side upsell.",
         before: () => {
             const el = document.querySelector('.eco');
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -625,9 +632,11 @@ const tourSteps = [
     },
     {
         target: '.mcp-wrap',
-        title: "MCP Agent Layer — The Big Bet",
-        desc: "An MCP server that lets any AI assistant — Claude, ChatGPT, enterprise procurement bots — query Clutch's verified providers and reviews directly, the same way they'd call any tool.",
-        why: "When a buyer asks their AI assistant for a vendor recommendation, Clutch is the data behind the answer. No other B2B marketplace ships this yet.",
+        title: "MCP Agent Layer — For Buyers Who Never Visit Clutch",
+        audience: "For buyers who ask AI instead of visiting websites",
+        audienceCls: "off-clutch",
+        desc: "For Audience ②: a buyer asks Claude or ChatGPT \"find me a HIPAA-compliant marketing agency.\" The AI queries <b>Clutch's MCP server</b> in the background. Clutch sends back verified-review-backed matches. The buyer gets a great recommendation — and never had to visit clutch.co.",
+        why: "Today, that buyer is <b>invisible to Clutch</b>. They ask ChatGPT, get a random answer, Clutch makes $0. MCP captures them — Clutch is the data behind the AI's answer, and the agent routes a paid lead back.",
         before: () => {
             const el = document.querySelector('.mcp-wrap');
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -636,12 +645,13 @@ const tourSteps = [
     },
     {
         target: '#mcpRun',
-        title: "A Live Agent Query",
-        desc: "Watch a real call. An AI agent (Claude, here, on behalf of a hospital system) asks Clutch for a marketing partner. Clutch sends back ranked matches with reasoning.",
-        why: "Same business model as a website lead today — providers pay for verified buyer intent. What's new is the channel: the buyer never had to visit clutch.co.",
-        try: "We'll click Run Query. The request streams out, the structured response streams back.",
+        title: "Watch a Real Agent Query",
+        audience: "For buyers who ask AI instead of visiting websites",
+        audienceCls: "off-clutch",
+        desc: "A buyer at a hospital system asks their AI assistant for a marketing agency. The agent calls Clutch's MCP server. You'll see the request go out, and verified matches stream back — each one cites the real Clutch reviews it came from.",
+        why: "<b>How the monetization works:</b> same lead-gen model as today — providers pay Clutch for verified buyer intent. New thing: that intent is now being generated by a buyer who <em>never visited the website</em>. Every qualifying agent query is an additional paid lead Clutch wouldn't have earned otherwise. This is net-new revenue, not cannibalized revenue.",
+        try: "We'll click Run Query. Watch the request stream out — then the structured response stream back.",
         before: () => {
-            // Idempotent: only re-run if response panel still shows the empty state
             const resp = document.getElementById('mcpResponse');
             const isEmpty = resp && resp.querySelector('.code-empty');
             if (isEmpty) {
@@ -655,9 +665,11 @@ const tourSteps = [
     },
     {
         target: '#reviews',
-        title: "Review Intelligence — The Foundation",
-        desc: "Every verified review is parsed into structured signal — sentiment by category, themes, trend lines over time, and a fraud-detection feed.",
-        why: "This is what makes the matches and the agent answers trustworthy. Without it, the rest of the system has nothing real to reason over.",
+        title: "Review Intelligence — Powers Both Audiences",
+        audience: "The foundation under both audiences",
+        audienceCls: "foundation",
+        desc: "Every verified review is parsed into structured signal — sentiment by category, themes, six-month trends, fraud detection.",
+        why: "This layer is what makes the on-site matching AND the agent answers trustworthy. Without it, neither audience gets good recommendations.",
         before: () => {
             const el = document.getElementById('reviews');
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -667,8 +679,10 @@ const tourSteps = [
     {
         target: '#demand',
         title: "Provider Demand Intelligence",
-        desc: "Every search becomes a demand signal. The platform shows providers where buyer demand exceeds supply (e.g. <b>20 buyers searched Shopify-in-healthcare; only 3 providers match</b>) and what to do about it.",
-        why: "Closes the loop. Supply catches up to demand, match quality compounds, and Clutch+ upsells get justified with real data.",
+        audience: "For providers (supply-side loop)",
+        audienceCls: "providers",
+        desc: "Every search — from Audience ① or ② — becomes a demand signal. Providers see where buyer demand exceeds supply (e.g. <b>20 buyers searched Shopify-in-healthcare; only 3 providers match</b>) and get AI-suggested profile actions.",
+        why: "Closes the loop. Supply catches up to demand, match quality compounds for both audiences, and Clutch+ upsells get justified with real data instead of vibes.",
         before: () => {
             const el = document.getElementById('demand');
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -677,9 +691,11 @@ const tourSteps = [
     },
     {
         target: '#floatPill',
-        title: "The Conversational Surface",
-        desc: "When a buyer interacts with an AI concierge directly, the experience is the same engine — different surface. The agent calls the same MCP tools, returns the same matches, cites the same verified reviews.",
-        why: "One backend, multiple front-doors. The same investment in structured data pays off across web, embedded chat, and external agent ecosystems.",
+        title: "Concierge Chat (Third Surface)",
+        audience: "Optional concierge for either audience",
+        audienceCls: "both",
+        desc: "A chat concierge embedded on clutch.co. Same MCP tools underneath, conversational front-door. A buyer types their brief, the concierge researches with Clutch's data and returns matches.",
+        why: "One backend, three front-doors: website matching, external AI agents, and this concierge. Same data investment pays off everywhere.",
         try: "We'll open the concierge so you can see the scripted research flow in action.",
         before: () => {
             // Idempotent: only open if not already open
@@ -696,8 +712,10 @@ const tourSteps = [
     {
         target: '.close',
         title: "Three Strategic Wins",
-        desc: "<b>First-mover advantage</b> — the agent layer is unbuilt anywhere else in B2B services. <b>New distribution channel</b> — reach extends beyond website visitors to every AI assistant. <b>Long-term moat</b> — verified review data compounds, and trust doesn't transfer easily.",
-        why: "Not a feature roadmap. A platform thesis. Clutch becomes the data layer behind B2B buying decisions everywhere — not just on clutch.co.",
+        audience: "The platform thesis",
+        audienceCls: "both",
+        desc: "<b>① Better conversion on existing traffic</b> — natural-language matching lifts Audience ①.<br><b>② Capture previously invisible buyers</b> — MCP unlocks Audience ②.<br><b>③ Defensible moat</b> — 2M+ verified reviews + structured intelligence compounds over time.",
+        why: "Not a feature roadmap. A platform thesis: Clutch becomes the data layer behind B2B buying decisions <em>everywhere</em> — not just on clutch.co.",
         before: () => {
             const chat = document.getElementById('chatOverlay');
             if (chat && chat.classList.contains('on')) chat.classList.remove('on');
@@ -720,6 +738,7 @@ const tourSpot = document.getElementById('tourSpot');
 const tourTip = document.getElementById('tourTip');
 const tourStepNum = document.getElementById('tourStepNum');
 const tourTitle = document.getElementById('tourTitle');
+const tourAudience = document.getElementById('tourAudience');
 const tourDesc = document.getElementById('tourDesc');
 const tourWhy = document.getElementById('tourWhy');
 const tourTry = document.getElementById('tourTry');
@@ -762,6 +781,15 @@ function showTourStep(i) {
     // Update text
     tourStepNum.textContent = `${i + 1} of ${tourSteps.length}`;
     tourTitle.textContent = step.title;
+
+    // Audience tag (swap class each time so the color matches)
+    tourAudience.className = 'tour-audience';
+    if (step.audience) {
+        tourAudience.textContent = step.audience;
+        tourAudience.classList.add('on');
+        if (step.audienceCls) tourAudience.classList.add(step.audienceCls);
+    }
+
     tourDesc.innerHTML = step.desc || '';
     tourWhy.innerHTML = step.why || '';
     tourWhy.style.display = step.why ? 'block' : 'none';

@@ -2031,6 +2031,47 @@ footer strong { color: var(--ink); }
     letter-spacing: -0.4px;
     line-height: 1.25;
 }
+.tour-audience {
+    display: none;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    align-items: center;
+    gap: 8px;
+}
+.tour-audience.on { display: inline-flex; }
+.tour-audience::before {
+    font-size: 13px;
+}
+.tour-audience.on-clutch {
+    background: rgba(52,120,246,0.08);
+    color: var(--blue);
+}
+.tour-audience.on-clutch::before { content: '👤'; }
+.tour-audience.off-clutch {
+    background: rgba(123,97,255,0.1);
+    color: var(--purple);
+}
+.tour-audience.off-clutch::before { content: '🤖'; }
+.tour-audience.foundation {
+    background: var(--verified-dim);
+    color: var(--verified);
+}
+.tour-audience.foundation::before { content: '🧱'; }
+.tour-audience.providers {
+    background: var(--amber-dim);
+    color: var(--amber);
+}
+.tour-audience.providers::before { content: '💼'; }
+.tour-audience.both {
+    background: var(--coral-dim);
+    color: var(--coral);
+}
+.tour-audience.both::before { content: '🔁'; }
+
 .tour-desc {
     font-size: 14px;
     line-height: 1.7;
@@ -2038,6 +2079,8 @@ footer strong { color: var(--ink); }
     margin-bottom: 14px;
 }
 .tour-desc b { color: var(--ink); font-weight: 700; }
+.tour-desc em { color: var(--coral); font-style: normal; font-weight: 600; }
+.tour-tooltip.compact .tour-audience { display: none; }
 .tour-why {
     font-size: 13px;
     line-height: 1.65;
