@@ -44,7 +44,7 @@ Three points:
 
 2. **Where buyers do research is shifting.** A growing share of B2B buyers ask Claude/ChatGPT "find me a HIPAA marketing agency" before they Google anything. Today, that buyer gets a random answer and Clutch has zero presence. MCP (Model Context Protocol) is the standard for AI agents to call external data — so Clutch publishes an MCP server and becomes the default source those AIs cite. No B2B marketplace has shipped MCP yet — that's the first-mover window.
 
-3. **Money flows four ways, all additive:** (a) agent cites Clutch → buyer clicks through to clutch.co → converts via existing lead-gen; (b) buyers who decide inside the AI → agent calls route_lead, provider pays same per-lead fee as today; (c) enterprise customers license Clutch's data for their own internal procurement AIs — brand new SaaS subscription tier; (d) future: sponsored placement in AI answers.
+3. **Money flows three ways, all additive:** (a) agent cites Clutch → buyer clicks through to clutch.co → converts via existing lead-gen; (b) enterprise customers license Clutch's data for their own internal procurement AIs — brand-new SaaS subscription tier; (c) future: sponsored placement in AI answers.
 
 ### The prototype maps to this thesis
 
@@ -55,7 +55,7 @@ Three points:
 
 ---
 
-## Part 2.5 · The four monetization paths, with concrete examples
+## Part 2.5 · The three monetization paths, with concrete examples
 
 This is the part that most needs to be crystal clear. Memorize the examples — when an interviewer asks "wait, how does this make money?" you want to answer with a specific scenario, not abstractions.
 
@@ -68,16 +68,7 @@ This is the part that most needs to be crystal clear. Memorize the examples — 
 
 **Why this is "extension not replacement":** that CMO was NEVER coming to clutch.co via Google — she started her research in Claude. Without MCP, she never visits. With MCP, she visits AND converts. Pure funnel expansion.
 
-### Path ② — Direct agent-routed leads (NET-NEW revenue, same per-lead fee)
-
-**What happens:** the buyer decides inside the AI conversation without clicking through. The agent calls `clutch.route_lead()` — that sends the buyer's qualified intent straight to the provider through Clutch's infrastructure. Provider pays the same per-lead fee as today.
-
-**Concrete scenario:**
-> *Same CMO, same question. Claude gives her three matches. She says, "Connect me with SilverThread — have their team reach out about our Q2 campaign." Claude calls clutch.route_lead(provider='silverthread', buyer_intent={brief: '...', budget: '$10K/mo', timing: 'Q2'}). SilverThread gets the qualified intent through Clutch's system. They pay Clutch the same per-lead fee as a clutch.co contact form would generate.*
-
-**Why this is net-new:** without MCP, this transaction never happens at all. Claude gives her the answer, she moves on, Clutch makes $0 and the provider never hears from her. The `route_lead` tool is the mechanism that turns "AI recommendation" into "paid transaction." Same economic unit, but created where there was nothing before.
-
-### Path ③ — Enterprise data licensing (BRAND-NEW SaaS tier, not per-lead)
+### Path ② — Enterprise data licensing (BRAND-NEW SaaS tier, not per-lead)
 
 **What happens:** big companies building internal AI tools pay Clutch a subscription to embed Clutch's data inside their own systems. This is NOT per-lead — it's a recurring subscription, like Bloomberg or Gartner.
 
@@ -99,7 +90,7 @@ This is the part that most needs to be crystal clear. Memorize the examples — 
 
 Clutch could reasonably price in the $50K–$500K/year range depending on org size and query volume.
 
-### Path ④ — Sponsored placement in agent answers (FUTURE optionality)
+### Path ③ — Sponsored placement in agent answers (FUTURE optionality)
 
 **What happens:** providers pay to appear prominently when an agent generates a list of matches. Same sponsored logic as clutch.co today, applied to agent responses.
 
@@ -172,7 +163,7 @@ Click Run Query. Watch the streaming. Say:
 
 This is where you land the monetization clearly:
 
-> *"Four revenue paths, all additive to what Clutch earns today. First, funnel extension: the AI cites Clutch, the buyer clicks through to the clutch.co profile, converts through the existing lead-gen funnel. That's the biggest slice. Second, direct agent-routed leads for buyers who decide inside the AI — agent calls the route_lead tool, provider pays per-lead same as today. Third, enterprise data licensing: companies embedding Clutch in their own internal procurement agents pay an API subscription — new SaaS tier. Fourth, future sponsored placement in agent answers. None of these cannibalize clutch.co revenue. They're all additions."*
+> *"Three revenue paths, all additive to what Clutch earns today. First, funnel extension — the biggest slice: the AI cites Clutch, the buyer clicks through to the clutch.co profile, converts through the existing lead-gen funnel. Same lead fee as today, just sourced from an AI instead of Google. Second, enterprise data licensing: think Deloitte with 1,000 consultants building an internal AI for vendor research — they pay Clutch $50K to $500K a year to embed our data in that tool. That's a brand-new SaaS tier. Third, future optionality: sponsored placement in agent answers, same as Clutch's sponsored listings today but extended to the agent surface. None of these cannibalize clutch.co revenue. They're all additions."*
 
 ### Step D — Scroll to the closing "Three Strategic Wins" (2 min)
 
