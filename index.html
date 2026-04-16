@@ -855,7 +855,17 @@
                 <span class="tour-eyebrow-sep">·</span>
                 <span class="tour-step-num" id="tourStepNum">1 of 10</span>
             </div>
-            <button class="tour-btn-exit" id="tourExit" title="Close walkthrough">×</button>
+            <div class="tour-header-btns">
+                <button class="tour-btn-min" id="tourMin" title="Minimize">−</button>
+                <button class="tour-btn-exit" id="tourExit" title="Close walkthrough">×</button>
+            </div>
+        </div>
+        <!-- Minimized pill (shown when collapsed) -->
+        <div class="tour-mini-pill" id="tourMiniPill">
+            <span class="tour-eyebrow-tag" style="font-size:9px;">Walkthrough</span>
+            <span class="tour-mini-step" id="tourMiniStep">4 of 10</span>
+            <span class="tour-mini-title" id="tourMiniTitle"></span>
+            <button class="tour-mini-expand" id="tourExpand">+</button>
         </div>
         <div class="tour-title" id="tourTitle"></div>
         <div class="tour-desc" id="tourDesc"></div>

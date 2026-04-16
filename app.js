@@ -750,6 +750,9 @@ function showTourStep(i) {
     const step = tourSteps[i];
     if (!step) return;
 
+    // Always expand when advancing steps
+    expandTour();
+
     // Persist current position so closing + reopening resumes here
     sessionStorage.setItem('tourIdx', i);
 
@@ -817,8 +820,25 @@ function positionTour(targetSelector) {
     // Tooltip is fixed to bottom-right via CSS — no JS positioning needed
 }
 
+const tourMiniPill = document.getElementById('tourMiniPill');
+const tourMiniStep = document.getElementById('tourMiniStep');
+const tourMiniTitle = document.getElementById('tourMiniTitle');
+
+function minimizeTour() {
+    tourTip.classList.add('minimized');
+    tourMiniStep.textContent = tourStepNum.textContent;
+    tourMiniTitle.textContent = tourTitle.textContent;
+    tourMiniPill.classList.add('on');
+}
+function expandTour() {
+    tourTip.classList.remove('minimized');
+    tourMiniPill.classList.remove('on');
+}
+
 tourStart.addEventListener('click', openTour);
-tourExit.addEventListener('click', closeTour);
+tourExit.addEventListener('click', () => { expandTour(); closeTour(); });
+document.getElementById('tourMin').addEventListener('click', minimizeTour);
+document.getElementById('tourExpand').addEventListener('click', expandTour);
 document.getElementById('tourRestart').addEventListener('click', restartTour);
 tourNext.addEventListener('click', () => {
     if (tourIdx < tourSteps.length - 1) {
